@@ -3,15 +3,7 @@
 {% block title %}Post - {{post.Title}}!{% endblock %}
 
 {% block body %}
-    <h3>{{post.Title}}</h3>
-    <div>{{post.Text}}</div>
-    
-    <div style="color: grey;">
-        {% if date(post.created) < date('-1year') %}
-            Older than 1 year
-        {% else %}
-            {{ post.created|date('d/m/Y') }}
-        {% endif %}
-    </div>
 
+    {{include('micro_post/_post.html.twig',{post:post})}}
+    
 {% endblock %}
