@@ -2,8 +2,13 @@
 
 {% block title %}Post - {{post.Title}}!{% endblock %}
 
-{% block body %}
+{% block bread %}
+    → Post
+{% endblock %}
+
+
+{% block body %}    
 
     {{include('micro_post/_post.html.twig',{post:post})}}
-    
+
 {% endblock %}
