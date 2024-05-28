@@ -1,0 +1,27 @@
+{{form_start(form)}}
+
+    <div>{{form_errors(form)}}</div>
+
+    <div>
+        {{form_label(form.Title, 'Your PopPost title goes here!')}}
+    </div>
+
+    <div>
+        {{form_widget(form.Title, {'attr': {'style':'color:gray'}})}}
+    </div>
+
+    <div>
+        {{form_label(form.Text, 'Your PopPost text goes here!')}}
+    </div>
+
+    <div>
+        {{form_widget(form.Text)}}
+    </div>
+
+    <div>
+        <button type='submit'>Save</button>
+    </div>
+
+{{form_end(form)}}
+
+
