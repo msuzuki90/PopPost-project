@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
+use App\Entity\MicroPost;
 use App\Entity\User;
 use App\Entity\UserProfile;
+use App\Repository\CommentRepository;
+use App\Repository\MicroPostRepository;
 use App\Repository\UserProfileRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,8 +26,40 @@ class HelloController extends AbstractController
 
 
     #[Route('/', name: 'app_index')]
-    public function index(UserProfileRepository $profiles, EntityManagerInterface $entityManager): Response
+    public function index(
+        UserProfileRepository $profiles, 
+        EntityManagerInterface $entityManager,
+        MicroPost $post,
+        Comment $comment, 
+        MicroPostRepository $posts, 
+        CommentRepository $comments
+        ): Response
     {
+
+        // $post = new MicroPost();
+        // $post->setTitle('Test controller');
+        // $post->setText('This is a Test');
+        // $post->setCreated(new DateTime());
+
+        //$post = $posts->find(24);
+        //$post->getComments()->count();
+
+        //$comment = new Comment();
+        //$comment->setText('Hey this test is kinda annoying');
+        //$comment->setPost($post);
+
+        //$post->addComment($comment);
+        //dd($post);
+        //$entityManager->persist($comment);
+
+        //$entityManager->flush();
+
+        //$comments->add($comment, true);
+
+        // TO DELETE:
+        // $post = $posts->find(19);
+        // $entityManager->remove($post);
+        // $entityManager->flush();
 
         // $user = new User();
         // $user->setEmail('email@email.com');
