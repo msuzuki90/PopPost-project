@@ -59,6 +59,7 @@ class HelloController extends AbstractController
         // TO DELETE:
         // $post = $posts->find(19);
         // $entityManager->remove($post);
+        // CODE I STOLE TO TEST : $posts = $entityManager->getRepository(MicroPost::class)->findAll();
         // $entityManager->flush();
 
         // $user = new User();
