@@ -21,6 +21,10 @@ class Comment
     #[ORM\JoinColumn(nullable: false)]
     private ?MicroPost $post = null;
 
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $Author = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -48,6 +52,18 @@ class Comment
     public function setPost(?MicroPost $post): static
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->Author;
+    }
+
+    public function setAuthor(?User $Author): static
+    {
+        $this->Author = $Author;
 
         return $this;
     }
