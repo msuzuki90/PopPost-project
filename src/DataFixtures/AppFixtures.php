@@ -51,18 +51,21 @@ class AppFixtures extends Fixture
         $microPost1->setTitle('Kendrick Lamar');
         $microPost1->setText('The Modern King Kunta');
         $microPost1->setCreated(new DateTime);
+        $microPost1->setAuthor($user1);
         $manager->persist($microPost1);
 
         $microPost2 = new MicroPost;
         $microPost2->setTitle('Drake');
         $microPost2->setText('Certified Lover Boy');
         $microPost2->setCreated(new DateTime);
+        $microPost2->setAuthor($user2);
         $manager->persist($microPost2);
 
         $microPost3 = new MicroPost;
         $microPost3->setTitle('J Cole');
         $microPost3->setText('Nobody is Perfect');
         $microPost3->setCreated(new DateTime);
+        $microPost3->setAuthor($user3);
         $manager->persist($microPost3);
 
         $manager->flush();
