@@ -24,13 +24,15 @@
 
             <div class="text-right">
                 <div class="text-m text-gray-400 dark:text-gray-500">
-                    <div> 
-                        <a href={{path('app_login')}}>Login</a>
-                        <a href='#'>Register</a>
-                    </div>
-                    <div>
-                        <a href="{{path('app_micro_post_add')}}">Add a New Post</a>
-                    </div>
+                    {% if app.user %}
+                        <div>
+                            <a href={{path('app_micro_post_add')}}>Add a New PopPost!</a>
+                        </div>
+                    {% else %}
+                        <div>
+                            <a href={{path('app_login')}}>Login </a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
