@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MicroPostRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -50,6 +51,7 @@ class MicroPost
     {
         $this->comments = new ArrayCollection();
         $this->LikedBy = new ArrayCollection();
+        $this->Created = new DateTime();
     }
 
     public function getId(): ?int
