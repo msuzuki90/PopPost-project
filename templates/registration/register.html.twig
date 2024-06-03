@@ -12,7 +12,15 @@
     {% endfor %}
 
     {{ form_start(registrationForm) }}
-         <div>
+        <div class="text-xl">
+            Basic Information
+        </div>
+        <div class="text-gray-500 mb-4 pb-4 border-b border-gray-300">
+            Shhhh keep it a secret ...
+        </div>
+
+
+        <div>
             {{form_label(registrationForm.email,'Your Email serves as Username', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}})}}
             {{form_widget(registrationForm.email, {'attr': {'class':'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}})}}
             {{form_errors(registrationForm.email)}}
@@ -35,10 +43,16 @@
         <div class ="flex items-center mt-4 mb-4">
             {{ form_widget(registrationForm.agreeTerms, {'attr':{'class':'h-4 w-4 rounded border border-gray text-indigo-300 mr-2'}} )}}
             {{ form_label(registrationForm.agreeTerms, 'Agree to terms', {'label_attr':{'class':'text-sm text-gray-700 dark:text-gray-300 font-medium'}} )}}
-
-
         </div>
 
+        <div class="text-xl mt-4">
+            Your Profile
+        </div>
+        <div class="text-gray-500 mb-4 pb-4 border-b border-gray-300">
+            Let us know more about you! You can change it anytime!
+        </div>
+
+        {{include('/settings_profile/_profile_form.html.twig',{ form: registrationForm.userProfile} )}}
 
         <button type='submit' class="block w-full shadow-sm border-transparent bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white rounded-md border p-2 mt-4 mb-2">
             Register!
