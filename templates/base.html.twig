@@ -23,12 +23,15 @@
             </div>
 
             <div class="text-right">
-                <div class="text-m text-gray-400 dark:text-gray-500">
+                <div class="text-m text-gray-500 dark:text-gray-400 flex">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <div>
-                            <a href={{path('app_micro_post_add')}}>Add a New PopPost!</a>
+                            <a href={{path('app_micro_post_add')}}>Add PopPost!</a>
                         </div>
-                        <div>
+                        <div class="ml-3">
+                            <a href={{path('app_settings_profile')}}>Profile Settings </a>
+                        </div>
+                        <div class="ml-3">
                             <a href={{path('app_logout')}}>Logout </a>
                         </div>
                     {% else %}
