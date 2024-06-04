@@ -12,9 +12,19 @@
     <div class="text-gray-500 dark:text-gray-400">
         {{ post.created| date("M j, Y")}}
     </div> 
-    <a href="#">
-        Like <span class="px-2 rounded-md bg-gray-200 dark:bg-gray-700">0<span>
-    </a>
+    
+    <div>
+        {% if post.LikedBy.contains(app.user)  %}
+            <a href="{{ path('app_unlike', {id: post.id})}}">
+                Unlike <span class="px-2 rounded-md bg-gray-200 dark:bg-gray-700">{{post.LikedBy.count}}<span>
+            </a>
+        {% else %}
+            <a href="{{ path('app_like', {id: post.id})}}">
+                like <span class="px-2 rounded-md bg-gray-200 dark:bg-gray-700">{{post.LikedBy.count}}<span>
+            </a>
+        {% endif %}
+    </div>
+
 
     <div class="text-sm text-gray-500 dark:text-gray-400">
         <a href="{{path('app_profile', {id:post.author.id})}}">{{post.author.email}}</a>
