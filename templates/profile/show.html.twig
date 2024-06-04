@@ -30,4 +30,8 @@
             </div>
         </div>
     {% endif %}
+
+    <div class="mt-8">
+        {{ include("micro_post/_post_list.html.twig", {posts: user.posts} )}}
+    </div>
 {% endblock %}
