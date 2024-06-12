@@ -1,0 +1,24 @@
+    {% embed "shared/_tabs.html.twig" %}
+
+        {% block tabs %}
+            {% embed "shared/_tab.html.twig" with { route: 'app_settings_profile'} %} 
+            {# name of folder #}
+                {% block content %}
+                    Your Profile Setting
+                {% endblock %}
+                {% block path %}
+                {{path('app_settings_profile')}}
+                {% endblock %}
+            {% endembed %}
+
+            {% embed "shared/_tab.html.twig" with { route: 'app_settings_profile_image', classes: 'ml-2'} %}
+                {% block content %}
+                    Set Your Avatar
+                {% endblock %}
+                {% block path %}
+                {{path('app_settings_profile_image')}}
+                {% endblock %}
+            {% endembed %}
+        {% endblock %}
+
+    {% endembed %}
