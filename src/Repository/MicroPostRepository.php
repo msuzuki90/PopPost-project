@@ -16,7 +16,7 @@ class MicroPostRepository extends ServiceEntityRepository
         parent::__construct($registry, MicroPost::class);
     }
 
-    public function findAllWithComments(): array 
+    public function findAllWithComments(): array //this is used in MicroPostController to get all the post and the comments
     {
         return $this->createQueryBuilder('p')
             ->addSelect('c')
