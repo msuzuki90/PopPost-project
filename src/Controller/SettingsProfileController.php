@@ -57,8 +57,7 @@ class SettingsProfileController extends AbstractController
 
     #[Route('/settings/profile-image', name: 'app_settings_profile_image')]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
-    public function profileImage( 
-        User $user, 
+    public function profileImage(  
         Request $request, 
         SluggerInterface $slugger,
         EntityManagerInterface $entityManager,
@@ -66,10 +65,13 @@ class SettingsProfileController extends AbstractController
     //slugger Interface symfony tool: symfony will know what to inject when we type hint anything with this interface
     {
         $form = $this->createForm(ProfileImageType::class);
-        /** @var User $user */
-        //doc block to specify that the user variable would be of the type User
-        $user = $this->getUser();
         $form->handleRequest($request);
+        /** @var User $user */
+
+        //doc block to specify that the user variable would be of the type User
+
+        $user = $this->getUser();
+        #$form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
             //profileImage is the name we used in our ProfileImageType form
@@ -100,8 +102,10 @@ class SettingsProfileController extends AbstractController
                         $newFileName
                     );
                 }catch (FileException $e) {
-
+                    $this->addFlash('error', 'Failed to upload image');
+                    return $this->redirectToRoute('app_settings_profile_image');
                 }
+                
                 $profile = $user->getUserProfile() ?? new UserProfile();
                 $profile->setImage($newFileName);
                 $user->setUserProfile($profile);
