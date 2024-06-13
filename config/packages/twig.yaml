@@ -2,6 +2,9 @@ twig:
     file_name_pattern: '*.twig'
     form_themes:
         - 'form/fields.html.twig'
+    # added globals to make our profiles parameter for storing user profile picture available all over twig 
+    globals:
+        profiles: '%profiles%'
 
 when@test:
     twig:
