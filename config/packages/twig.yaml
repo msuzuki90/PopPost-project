@@ -4,7 +4,8 @@ twig:
         - 'form/fields.html.twig'
     # added globals to make our profiles parameter for storing user profile picture available all over twig 
     globals:
-        profiles: '%profiles%'
+        #profiles: '%profiles%'
+        profiles: '/uploads/profiles/' # This URL path will be used in Twig templates to access the profile images
 
 when@test:
     twig:
