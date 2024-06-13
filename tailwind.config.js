@@ -7,6 +7,7 @@ module.exports = {
     "./templates/**/*.html.twig",
   ],
   safelist: [
+    'h-8',  'w-8', 
     'h-16', 'w-16',
     'h-24', 'w-24',
     'h-32', 'w-32',
@@ -15,6 +16,7 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
+        '8' : '2rem',
         '16': '4rem',
         '24': '6rem',
         '32': '8rem',
