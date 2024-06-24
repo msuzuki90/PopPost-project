@@ -32,7 +32,7 @@ class RegistrationFormType extends AbstractType
                 // this is read and encoded in the controller
                 'type'=> PasswordType::class,
                 'mapped' => false,
-                'invalid_message'=> 'the password field must match!',
+                'invalid_message'=> 'The password must match!',
                 'attr' => ['autocomplete' => 'new-password'],
                 'first_options'=>['label'=>'Password', 'mapped'=>false],
                 'second_options'=>['label'=>'Repeated password', 'mapped'=>false],
