@@ -9,6 +9,13 @@
         {{ post.text}}
     </div>
 
+
+    {% if post.picture %}
+        <div class="my-4">
+            <img src="{{ asset('uploads/comment_images/' ~ post.picture) }}" alt="Post Image" class="rounded-lg shadow-md w-32 h-32">
+        </div>
+    {% endif %}
+
     <div class="text-gray-500 dark:text-gray-400">
         {{ post.created| date("M j, Y")}}
     </div> 

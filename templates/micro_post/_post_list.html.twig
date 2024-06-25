@@ -1,3 +1,8 @@
+    
+    {% if query is defined and query is not null %}
+        <h2 class="text-2xl mb-4">Votre recherche : '{{ query }}'</h2>
+    {% endif %}
+
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
         {% if posts|length > 0 %}
             {% for post in posts %}

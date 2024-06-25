@@ -50,6 +50,9 @@ class MicroPost
     #[ORM\JoinColumn(nullable: false)]
     private ?User $Author = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $picture = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -160,6 +163,18 @@ class MicroPost
     public function setAuthor(?User $Author): static
     {
         $this->Author = $Author;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): static
+    {
+        $this->picture = $picture;
 
         return $this;
     }

@@ -8,6 +8,7 @@ parameters:
     #profiles: '/uploads/profiles/'
     # -> symfony doc: brochures_directory: '%kernel.project_dir%/public/uploads/brochures'
     profiles_directory: '%kernel.project_dir%/public/uploads/profiles' # re configured directory where i will save files and make the profile variable available in twig template
+    comment_directory: '%kernel.project_dir%/public/uploads/comment_images'
 
 services:
     # default configuration for services in *this* file

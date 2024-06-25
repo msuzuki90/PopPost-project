@@ -26,6 +26,20 @@ class MicroPostRepository extends ServiceEntityRepository
             ->getResult();
 
     }
+
+
+    public function findAllWithCommentsAndSearch(string $search): array //this is used in MicroPostController to get all the post and the comments
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('c')
+            ->leftJoin('p.comments','c')
+            ->where('p.Text LIKE :search OR p.Title LIKE :search')
+            ->setParameter('search', '%' . $search . '%')
+            ->orderBy('p.Created', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return MicroPost[] Returns an array of MicroPost objects
     //     */
