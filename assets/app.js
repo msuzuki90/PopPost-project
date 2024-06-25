@@ -55,12 +55,6 @@ moonIcon.addEventListener("click", ()=>{
 // invoke theme check on initial load
 themeCheck();
 
-
-
-
-
-
-
 import './styles/app.scss';
 import './bootstrap';
 
