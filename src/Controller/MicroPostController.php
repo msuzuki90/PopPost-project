@@ -8,7 +8,6 @@ use App\Form\CommentType;
 use App\Form\MicroPostType;
 use App\Repository\CommentRepository;
 use App\Repository\MicroPostRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -181,34 +180,5 @@ class MicroPostController extends AbstractController
         ]);
             
     }
-
-    // #[Route('/new', name: 'app_image_new', methods: ['GET', 'POST'])]
-    // #[IsGranted('ROLE_VERIFIED')]
-    // public function new(Request $request, EntityManagerInterface $entityManager, ImageService $imageService): Response
-    // {
-    //     $post = new MicroPost();
-    //     $form = $this->createForm(MicroPostType::class, $post);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-
-    //         $fileName = $imageService->copyImage("postImage", $this->getParameter("comment_directory"), $form);
-    //         $post->setPicture($fileName);
-    //         $entityManager->persist($post);
-    //         $entityManager->flush();
-
-
-    //         $this->addFlash(
-    //             'success',
-    //             'Your picture has loaded succesfully'
-    //         );
-
-
-    //         return $this->redirectToRoute('app_micro_post', [], Response::HTTP_SEE_OTHER);
-
-    //     }
-
-    // }
-
 
 }
