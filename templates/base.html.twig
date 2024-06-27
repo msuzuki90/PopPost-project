@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light">
+<html class="dark">
 	<head>
 		<meta charset="UTF-8">
 		<title>
@@ -39,6 +39,11 @@
 							<a href={{path('app_logout')}}>Logout
 							</a>
 						</div>
+						{% if is_granted('ROLE_EDITOR') %}
+               				<div class="ml-2">
+                    			<a href="{{ path('admin') }}">BackOffice</a>
+               				</div>
+            			{% endif %}
 					{% else %}
 						<div>
 							<a href={{path('app_login')}}>Login
