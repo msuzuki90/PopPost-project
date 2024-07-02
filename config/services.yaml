@@ -15,7 +15,10 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-
+    
+    App\Security\UserChecker:
+        tags:
+            - { name: security.user_checker }
     #App\Entity\User:  
         #autowire: true added this parameter because encountering error where autowire argument $user has been profile picture did not change
 

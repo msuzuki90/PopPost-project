@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\MicroPost;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,17 +17,24 @@ class MicroPostRepository extends ServiceEntityRepository
         parent::__construct($registry, MicroPost::class);
     }
 
-    public function findAllWithComments(): array //this is used in MicroPostController to get all the post and the comments
+    public function findAllWithComments(): QueryBuilder //this is used in MicroPostController to get all the post and the comments
     {
         return $this->createQueryBuilder('p')
             ->addSelect('c')
             ->leftJoin('p.comments','c')
-            ->orderBy('p.Created', 'DESC')
-            ->getQuery()
-            ->getResult();
+            ->orderBy('p.Created', 'DESC');
+            //->getQuery();
+            //->getResult();
 
     }
 
+    // public function findAllWithComments(): QueryBuilder
+    // {
+    //     return $this->createQueryBuilder('p')
+    //         ->addSelect('c')
+    //         ->leftJoin('p.comments', 'c')
+    //         ->orderBy('p.Created', 'DESC');
+    // }
 
     public function findAllWithCommentsAndSearch(string $search): array //this is used in MicroPostController to get all the post and the comments
     {

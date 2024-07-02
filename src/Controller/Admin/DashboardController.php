@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Comment;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -14,7 +15,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/admin', name: 'admin')]
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_EDITOR')]
     public function index(): Response
     {
         // return parent::index();
@@ -46,5 +47,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Users List', 'fas fa-list', User::class);
+        //yield MenuItem::linkToCrud('Comment List', 'fas fa-list', Comment::class);
+        yield MenuItem::linkToRoute('Back to App', 'fa fa-arrow-left', 'app_micro_post');
     }
 }

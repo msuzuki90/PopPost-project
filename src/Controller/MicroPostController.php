@@ -9,6 +9,7 @@ use App\Form\MicroPostType;
 use App\Repository\CommentRepository;
 use App\Repository\MicroPostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,12 +21,33 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class MicroPostController extends AbstractController
 {
     #[Route('/micro-post', name: 'app_micro_post')]
-    public function index(MicroPostRepository $posts, EntityManagerInterface $entityManager): Response
+    public function index(MicroPostRepository $postRepo, PaginatorInterface $paginator, Request $request): Response
     {
 
+        $sort = $request->query->get('sort', 'desc');
+        $queryBuilder = $postRepo->findAllWithComments();
+
+        if ($sort === 'asc') {
+            $queryBuilder->orderBy('p.Created', 'ASC');
+        } else {
+            $queryBuilder->orderBy('p.Created', 'DESC');
+        }
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            5
+        );
+
         return $this->render('micro_post/index.html.twig', [
-            'posts' => $posts->findAllWithComments(),
+            'posts' => $pagination,
+            'filter'=>$sort,
         ]);
+
+
+        // MY CODE WITHOUT PAGINATOR
+        // return $this->render('micro_post/index.html.twig', [
+        //     'posts' => $posts->findAllWithComments(),
+        // ]);
     }
 
     #[Route('/micro-post/{post}', name: 'app_micro_post_show')]

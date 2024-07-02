@@ -1,0 +1,27 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content %}
+
+    <h1>Ban User: {{ app.user.email }}</h1>
+    <div>
+      
+        {{ dump(user) }}
+     
+    </div>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <button class="btn btn-primary">Ban User</button>
+
+    {{ form_end(form) }}
+
+
+    {# {{ parent() }}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}  #}
+{% endblock %}

@@ -292,6 +292,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function isBanned(): bool
+    {
+        return $this->banHammer !== null && $this->banHammer > new \DateTime();
+    }
+
     /**
      * @return Collection<int, self>
      */
