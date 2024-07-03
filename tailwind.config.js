@@ -14,6 +14,13 @@ module.exports = {
     'h-40', 'w-40',
   ],
   theme: {
+    screens:{
+      sm: '480px',
+      md: '768px',
+      lg: '976px',
+      xl: '1440px'
+    },
+
     extend: {
       spacing: {
         '8' : '2rem',
@@ -23,6 +30,10 @@ module.exports = {
         '40': '10rem',
         // Add other sizes as necessary
       },
+      fontFamily: {
+        sans: ['Josefin Sans', 'sans-serif'],
+        alata: ['Alata'],
+      }
     },
   },
 

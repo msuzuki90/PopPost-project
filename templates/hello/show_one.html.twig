@@ -1,9 +1,0 @@
-{% extends "base.html.twig" %}
-
-
-{% block body %}
-    <h2> The Current Message is:<h2>
-    <div>{{message.message}}</div>
-        {{ include('hello/_message.html.twig', {message: message}) }}
-    </div>
-{% endblock %}

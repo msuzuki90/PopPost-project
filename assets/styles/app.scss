@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+#hero {
+    background-image: url('/assets/images/creative.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media(max-width: 576px) {
+    #hero {
+    background-image: url('/assets/images/creative.jpg');
+    background-position: center;
+    }
+
+}
+
+
+
+
 .display-none{
     @apply hidden
 }

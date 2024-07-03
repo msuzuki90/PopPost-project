@@ -1,21 +1,22 @@
 <div class="mb-4">
 
-    <div class="text-2xl">
+    <div class="text-2xl text-center">
         <a href="{{ path('app_micro_post_show',{post:post.id}) }}">
             {{post.Title}}
         </a>
     </div>
-    <div class="text-xl dark:text-gray-400">
+    <div class="text-xl text-center dark:text-gray-400">
         {{ post.text}}
     </div>
 
-
-    {% if post.picture %}
-        <div class="my-4">
-            <img src="{{ asset('uploads/comment_images/' ~ post.picture) }}" alt="Post Image" class="rounded-lg shadow-md w-32 h-32">
-        </div>
-    {% endif %}
-
+    <div class="flex flex-col items-center">
+        {% if post.picture %}
+            <div class="my-4">
+                <img src="{{ asset('uploads/comment_images/' ~ post.picture) }}" alt="Post Image" class="rounded-lg shadow-md w-40 h-40">
+            </div>
+        {% endif %}
+    </div>
+    
     <div class="text-gray-500 dark:text-gray-400">
         {{ post.created| date("M j, Y")}}
     </div> 
@@ -41,5 +42,5 @@
         <a href="{{ path('app_micro_post_edit', {post: post.id}) }}" class="mr-2">Edit</a>
         <a href="{{ path('app_micro_post_comment', {post: post.id}) }}">Comment <span class="px-2 rounded-md bg-gray-200 dark:bg-gray-700">{{post.comments.count}}<span></a>
     </div>
-
+    
 </div>

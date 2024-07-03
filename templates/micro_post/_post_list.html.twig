@@ -1,18 +1,20 @@
     
     {% if query is defined and query is not null %}
-        <h2 class="text-2xl mb-4">Votre recherche : '{{ query }}'</h2>
+        <h2 class="text-2xl mb-4">search: '{{ query }}'</h2>
     {% endif %}
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+    <div class="flex flex-col items-center">
         {% if posts|length > 0 %}
             {% for post in posts %}
-                {{include('micro_post/_post.html.twig',{post:post})}}
+                <div class="w-full sm:w-3/4 lg:w-1/2 mb-4 p-4 border-4 border-gray-300 rounded-lg">
+                    {{include('micro_post/_post.html.twig',{post:post})}}
+                </div>
             {% endfor %}
         {% else %}
             There's nothing here...sniff
         {% endif %}
     </div>
     
-    <div class="navigation">
+    <div class="navigation flex justify-center mt-4">
         {{ knp_pagination_render(posts) }}
     </div>

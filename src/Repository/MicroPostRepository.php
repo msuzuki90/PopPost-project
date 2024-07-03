@@ -58,6 +58,17 @@ class MicroPostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByUserOrderedByDateDesc($user)
+
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.Author = :user')
+            ->setParameter('user', $user->getId())
+            ->orderBy('p.Created', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return MicroPost[] Returns an array of MicroPost objects
     //     */

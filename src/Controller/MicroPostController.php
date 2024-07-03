@@ -21,7 +21,9 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class MicroPostController extends AbstractController
 {
     #[Route('/micro-post', name: 'app_micro_post')]
-    public function index(MicroPostRepository $postRepo, PaginatorInterface $paginator, Request $request): Response
+    public function index(MicroPostRepository $postRepo, 
+        PaginatorInterface $paginator, 
+        Request $request): Response
     {
 
         $sort = $request->query->get('sort', 'desc');
@@ -42,12 +44,6 @@ class MicroPostController extends AbstractController
             'posts' => $pagination,
             'filter'=>$sort,
         ]);
-
-
-        // MY CODE WITHOUT PAGINATOR
-        // return $this->render('micro_post/index.html.twig', [
-        //     'posts' => $posts->findAllWithComments(),
-        // ]);
     }
 
     #[Route('/micro-post/{post}', name: 'app_micro_post_show')]
@@ -65,7 +61,7 @@ class MicroPostController extends AbstractController
     #[IsGranted('ROLE_VERIFIED')]
     public function add(
         Request $request,
-        MicroPostRepository $posts, 
+        //MicroPostRepository $posts, 
         EntityManagerInterface $entityManager,
         SluggerInterface $slugger,
     ): Response
@@ -135,7 +131,9 @@ class MicroPostController extends AbstractController
 
     #[Route('/micro-post/{post}/edit', name: 'app_micro_post_edit')]
     #[IsGranted(MicroPost::EDIT, 'post')]
-    public function edit(MicroPost $post, Request $request, MicroPostRepository $posts, EntityManagerInterface $entityManager): Response
+    public function edit(MicroPost $post, Request $request,
+        //MicroPostRepository $posts, 
+        EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(MicroPostType::class, $post);
 
@@ -168,7 +166,7 @@ class MicroPostController extends AbstractController
     public function addComment(
         MicroPost $post, 
         Request $request, 
-        CommentRepository $comments, 
+        //CommentRepository $comments, 
         EntityManagerInterface $entityManager): Response
     {
         // $this->denyAccessUnlessGranted(
