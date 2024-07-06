@@ -5,7 +5,8 @@
  * which should already be in your base.html.twig.
  */
 
-
+import './styles/app.scss';
+import './bootstrap';
 
 // Icons
 const sunIcon = document.querySelector(".sun");
@@ -54,9 +55,5 @@ moonIcon.addEventListener("click", ()=>{
 
 // invoke theme check on initial load
 themeCheck();
-
-import './styles/app.scss';
-import './bootstrap';
-
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

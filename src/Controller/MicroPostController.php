@@ -160,9 +160,12 @@ class MicroPostController extends AbstractController
         ]);
             
     }
+    
 
     #[Route('/micro-post/{post}/comment', name: 'app_micro_post_comment')]
-    #[IsGranted('ROLE_COMMENTER')]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    #[IsGranted('ROLE_VERIFIED')]
+    //#[IsGranted('ROLE_COMMENTER')]
     public function addComment(
         MicroPost $post, 
         Request $request, 
@@ -200,5 +203,24 @@ class MicroPostController extends AbstractController
         ]);
             
     }
+    #[Route('/micro-post/{post}/delete', name: 'app_micro_post_delete', methods: ['POST'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    #[IsGranted('ROLE_VERIFIED')]
+    //#[IsGranted('ROLE_COMMENTER')]
+    public function delete(MicroPost $post, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($post);
+            $entityManager->flush();
+            
+            $this->addFlash('success', 'Your post has been deleted successfully!');
+        } else {
+            $this->addFlash('error', 'Invalid CSRF token. Deletion failed.');
+        }
+
+        return $this->redirectToRoute('app_micro_post');
+    }
+
+    
 
 }

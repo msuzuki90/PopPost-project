@@ -2,57 +2,28 @@
 
 {% block body %}
 
-{# Hero section #}
 <section id="hero">
-    {# Hero Container #}
-    <div class="container max-w-6xl mx-auto px-6 py-12">
-        {# Nav/Logo Container #}
-        <div class="max-w-lg mt-21 mb-21 p-3 font-sans-300 text-xl text-white font-bold uppercase md:m-32 md:mx-0 md:text-6xl">
-            Express Yourself <br> With
-        </div>
-        {# Mobile Menu #}
-    </div>
-</section>
 
-<section>
+    <div class="max-w-6xl mx-auto text-center">
+        <img src="{{asset('images/PopPost_dark.png')}}" alt="" class="mx-auto"/>
 
-    <div class="grid grid-cols-2 gap-4">
-        <div>
-
-        
-        </div>
-        <div>
-            <h2 class="max-w-lg font-sans text-4xl text-center text-gray-900 uppercase md:text-5xl md:mt-0 md:text-left">
-                Connect with your tribe!
-            </h2>
-        </div>
-    </div>
-
-    <div class="bg-white md:py-20 md:pl-20 flex flex-col md:flex-row items-start">
-        <div class="flex-1">
-            <h2 class="max-w-lg font-sans text-4xl text-center text-gray-900 uppercase md:text-5xl md:mt-0 md:text-left">
-                Connect with your tribe!
-            </h2>
-            <p class="max-w-md text-black text-justify md:text-left">
-                PopPost is a vibrant social media platform designed to help you find and connect with like-minded individuals. 
-                Whether you're passionate about niche hobbies, unique interests, or shared values, 
-                PopPost makes it easy to discover communities and build meaningful connections. Our goal is to 
-                create a space where you can engage with others who share your passions, fostering a sense of 
-                belonging and collaboration. Join PopPost today and start finding your tribe!
-            </p>
-        </div>
-        
-        <div >
-            <a class="inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 bg-slate-900 text-white hover:bg-slate-700" href="{{ path('app_login') }}"><span>Login <span aria-hidden="true" class="text-slate-400 sm:inline">→</span></span></a>
-            {# <a  class="inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 bg-slate-900 text-white hover:bg-slate-700" href="/preview">
+        <h3 class="mb-8 text-4xl font-alata font-bold text-white md:text-5xl">
+            Communicate with a community!
+        </h3>
+        <p class="max-w-3xl mx-auto mb-10 text-2xl text-white">
+            PopPost is a vibrant social media platform designed to help you find and connect with like-minded individuals.
+        </p>
+        <div class="grid-cols-2 mx-auto flex flex-row justify-center w-full space-y-6 text-xl text-white md:flex-row md:space-y-0 md:space-x-4 sm:text-center sm:container  ">
+            <a href="{{ path('app_login') }}" class="p-4 px-16 rounded-full shadow-lg bg-blue-500 duration-200 hover:opacity-80">
                 Login
-            </a> #}
-            <a class="inline-flex justify-center rounded-lg text-sm font-semibold py-3 px-4 bg-slate-900 text-white hover:bg-slate-700" href="{{ path('app_register') }}"><span>Register <span aria-hidden="true" class="text-slate-400 sm:inline">→</span></span></a>
-            {# <a href="{{ path('app_register') }}" class="block w-full shadow-sm border-transparent bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white rounded-md border p-2 mt-4 mb-2">
+            </a>
+            <a href="{{ path('app_register') }}" class="p-4 px-16 rounded-full shadow-lg bg-cyan-500  duration-200 hover:opacity-80">
                 Register
-            </a> #}
+            </a>
+    
         </div>
     </div>
+
 </section>
 
 

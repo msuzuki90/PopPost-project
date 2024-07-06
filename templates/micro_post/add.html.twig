@@ -2,12 +2,15 @@
 
 {% block title %}Create New Post!{% endblock %}
 
-{% block bread %}
-    → Create PopPost!
-{% endblock %}
+
 
 {% block body %}
-
-    {{ include("micro_post/_form.html.twig") }}
-
+    {% include "nav.html.twig" %}
+    
+    {% block bread %}
+    → Create PopPost!
+    {% endblock %}
+    <div class="max-w-6xl mx-auto">
+        {{ include("micro_post/_form.html.twig") }}
+    </div>
 {% endblock %}

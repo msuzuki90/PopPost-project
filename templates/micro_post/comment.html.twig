@@ -7,8 +7,12 @@
 {% endblock %}
 
 {% block body %}
-    {{include('micro_post/_post.html.twig',{post:post})}}
-    
+{% include "nav.html.twig" %}
+<div class="max-w-6xl mx-auto">
+    <div class="flex justify-center">
+        {{include('micro_post/_post.html.twig',{post:post})}}
+    </div>
+
     {{form_start(form, {'attr':{'novalidate':'novalidate'}})}}
 
     <div>{{form_errors(form)}}</div>
@@ -24,7 +28,7 @@
             Add Comment!
         </button>
     </div>
-
+</div>
 {{form_end(form)}}
 
 
