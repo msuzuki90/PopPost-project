@@ -52,6 +52,7 @@ class MicroPostController extends AbstractController
     {
         return $this->render('micro_post/show.html.twig', [
             'post' => $post,
+            
         ]);
     }
 
