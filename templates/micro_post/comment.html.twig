@@ -1,37 +1,34 @@
+{# templates/micro_post/comment.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Comment A Post!{% endblock %}
 
 {% block bread %}
-    → <a href={{ path('app_micro_post_show', {post: post.id}) }}>Post</a> →Comment!
+    → <a href="{{ path('app_micro_post_show', {post: post.id}) }}">Post</a> → Comment!
 {% endblock %}
 
 {% block body %}
 {% include "nav.html.twig" %}
 <div class="max-w-6xl mx-auto">
     <div class="flex justify-center">
-        {{include('micro_post/_post.html.twig',{post:post})}}
+        {{ include('micro_post/_post.html.twig', { post: post, isCommentPage: true }) }}
     </div>
 
-    {{form_start(form, {'attr':{'novalidate':'novalidate'}})}}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
-    <div>{{form_errors(form)}}</div>
+    <div>{{ form_errors(form) }}</div>
 
     <div>
-        {{form_label(form.Text, 'Your PopPost Comment goes here!', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}})}}
-        {{form_widget(form.Text, {'attr': {'class':'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}})}}
-        {{form_errors(form.Text)}}
+        {{ form_label(form.Text, 'Your PopPost Comment goes here!', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}}) }}
+        {{ form_widget(form.Text, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
+        {{ form_errors(form.Text) }}
     </div>
 
     <div>
-        <button type='submit' class="block w-full shadow-sm border-transparent bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white rounded-md border p-2 mt-4 mb-2">
+        <button type="submit" class="block w-full shadow-sm border-transparent bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white rounded-md border p-2 mt-4 mb-2">
             Add Comment!
         </button>
     </div>
 </div>
-{{form_end(form)}}
-
-
-
-
+{{ form_end(form) }}
 {% endblock %}

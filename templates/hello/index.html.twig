@@ -4,8 +4,8 @@
 
 <section id="hero">
 
-    <div class="max-w-6xl mx-auto text-center">
-        <img src="{{asset('images/PopPost_dark.png')}}" alt="" class="mx-auto"/>
+    <div class="max-w-6xl mx-auto text-center pt-10">
+        <img src="{{ asset('images/PopPost_dark.png') }}" alt="" class="mx-auto"/>
 
         <h3 class="mb-8 text-4xl font-alata font-bold text-white md:text-5xl">
             Communicate with a community!
@@ -13,14 +13,13 @@
         <p class="max-w-3xl mx-auto mb-10 text-2xl text-white">
             PopPost is a vibrant social media platform designed to help you find and connect with like-minded individuals.
         </p>
-        <div class="grid-cols-2 mx-auto flex flex-row justify-center w-full space-y-6 text-xl text-white md:flex-row md:space-y-0 md:space-x-4 sm:text-center sm:container  ">
+        <div class="grid-cols-2 mx-auto flex flex-row justify-center w-full text-xl text-white md:flex-row md:space-x-4 sm:text-center sm:container -mt-6">
             <a href="{{ path('app_login') }}" class="p-4 px-16 rounded-full shadow-lg bg-blue-500 duration-200 hover:opacity-80">
                 Login
             </a>
-            <a href="{{ path('app_register') }}" class="p-4 px-16 rounded-full shadow-lg bg-cyan-500  duration-200 hover:opacity-80">
+            <a href="{{ path('app_register') }}" class="p-4 px-16 rounded-full shadow-lg bg-cyan-500 duration-200 hover:opacity-80">
                 Register
             </a>
-    
         </div>
     </div>
 

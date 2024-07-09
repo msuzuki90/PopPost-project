@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Paiement réalisé avec Succès ! {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="row mx-auto my-5" id="table-success">
+        <div class="form-success row col-md-12 justify-content-center mt-5 mb-3">
+            <i class="far fa-check-circle"></i>
+        </div>
+        <div class="col-md-12">
+            <h1 class="color-green text-center p-0">Paiement réalisé avec Succès !</h1>
+            <p class="text-center m-0">Votre paiement a bien été pris en compte.</p>
+            <p class="text-center">Vous retrouverez les détails de votre achat dans votre boite mail au format <a href="#">PDF</a>.</p>
+        </div>
+        <div class="w-100"></div>
+        <div class="form-shadow my-3 row col-10 col-sm-8 col-md-6 mx-auto white justify-content-center align-items-center white smallBorderRadius p-0">
+            <div class="arrow-up"></div>
+            <table class="table m-0 relative">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col" class="bg-secondary text-white">Abonnement</th>
+                        <th scope="col" class="bg-secondary text-white">{{ price }} €/mois</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-weight-bold">Transaction ID</td>
+                        <td>{{ invoiceNumber }}</td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold">Type de paiement</td>
+                        <td>{{ paymentMethod }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pdf">
+                <a href="{{ app.request.schemeAndHttpHost ~ pathInvoice }}" target="_blank" class="d-flex">Télécharger au format PDF</a>
+            </div>
+        </div>
+        <div class="col-md-12 mb-3 text-center">
+            <a href="{{ path('courses') }}" class="btn btn-primary text-white">Voir tous les cours</a>
+        </div>
+    </div>
+{% endblock %}

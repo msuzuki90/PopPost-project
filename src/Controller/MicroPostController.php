@@ -6,7 +6,6 @@ use App\Entity\Comment;
 use App\Entity\MicroPost;
 use App\Form\CommentType;
 use App\Form\MicroPostType;
-use App\Repository\CommentRepository;
 use App\Repository\MicroPostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -52,6 +51,7 @@ class MicroPostController extends AbstractController
     {
         return $this->render('micro_post/show.html.twig', [
             'post' => $post,
+            'isCommentPage' => true 
             
         ]);
     }
@@ -162,20 +162,14 @@ class MicroPostController extends AbstractController
             
     }
     
-
     #[Route('/micro-post/{post}/comment', name: 'app_micro_post_comment')]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     #[IsGranted('ROLE_VERIFIED')]
-    //#[IsGranted('ROLE_COMMENTER')]
     public function addComment(
         MicroPost $post, 
         Request $request, 
-        //CommentRepository $comments, 
-        EntityManagerInterface $entityManager): Response
-    {
-        // $this->denyAccessUnlessGranted(
-        //     'IS_AUTHENTICATED_FULLY'
-        // );
+        EntityManagerInterface $entityManager
+    ): Response {
         $form = $this->createForm(CommentType::class, new Comment());
 
         $form->handleRequest($request);
@@ -187,23 +181,24 @@ class MicroPostController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            //add Flash Message
-            $this->addFlash('success','Express Yourself! Your Comment has been added!');
-            //Redirect
+            // Add Flash Message
+            $this->addFlash('success', 'Express Yourself! Your Comment has been added!');
+
+            // Redirect
             return $this->redirectToRoute(
                 'app_micro_post_show',
-                ['post'=>$post->getId()]
+                ['post' => $post->getId()]
             );
-
         }
-        
-        return $this->render('micro_post/comment.html.twig',
-        [
-            'form'=> $form,
-            'post'=>$post
+
+        return $this->render('micro_post/comment.html.twig', [
+            'form' => $form->createView(),
+            'post' => $post,
+            'isCommentPage' => true  // Add this parameter to indicate it's the comment page
         ]);
-            
     }
+
+
     #[Route('/micro-post/{post}/delete', name: 'app_micro_post_delete', methods: ['POST'])]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     #[IsGranted('ROLE_VERIFIED')]

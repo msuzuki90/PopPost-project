@@ -1,25 +1,22 @@
+{# templates/micro_post/index.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}All Posts!
-{% endblock %}
+{% block title %}All Posts!{% endblock %}
 
 {% block body %}
-	{% include "nav.html.twig" %}
+    {% include "nav.html.twig" %}
 
     {% set filter = filter | default('desc') %}
-	<div class="mx-auto relative w-full md:w-1/2 text-gray-700 mt-7 mb-7 flex justify-center">
-    	<div class="flex justify-between w-full md:w-auto space-x-4">
-        	<a href="{{ path('app_filter', {'filter': 'desc'}) }}" class="flex items-center justify-center md:w-auto h-10 px-32 text-base placeholder-gray-600 appearance-none focus:shadow-outline {% if filter == 'desc' %}bg-blue-500 text-white{% else %}bg-white{% endif %}">
-            	Date DESC
-        	</a>
-        	<a href="{{ path('app_filter', {'filter': 'asc'}) }}" class="flex items-center justify-center md:w-auto h-10 px-32 text-base placeholder-gray-600 appearance-none focus:shadow-outline {% if filter == 'asc' %}bg-blue-500 text-white{% else %}bg-white{% endif %}">
-            	Date ASC
-        	</a>
-    	</div>
-	</div>
+    <div class="mx-auto relative w-full md:w-1/2 text-gray-700 mt-7 mb-7 flex justify-center">
+        <div class="flex justify-between w-full md:w-auto space-x-4">
+            <a href="{{ path('app_filter', {'filter': 'desc'}) }}" class="flex items-center justify-center md:w-auto h-10 px-32 text-base placeholder-gray-600 appearance-none focus:shadow-outline {% if filter == 'desc' %}bg-blue-500 text-white{% else %}bg-white{% endif %}">
+                Date DESC
+            </a>
+            <a href="{{ path('app_filter', {'filter': 'asc'}) }}" class="flex items-center justify-center md:w-auto h-10 px-32 text-base placeholder-gray-600 appearance-none focus:shadow-outline {% if filter == 'asc' %}bg-blue-500 text-white{% else %}bg-white{% endif %}">
+                Date ASC
+            </a>
+        </div>
+    </div>
 
-
-	{{ include("micro_post/_post_list.html.twig") }}
-
-
+    {{ include("micro_post/_post_list.html.twig") }}
 {% endblock %}
