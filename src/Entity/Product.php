@@ -23,20 +23,14 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $startAt = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $endAt = null;
-
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $city = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $priceIdStripe = null;
+
+    #[ORM\Column]
+    private ?int $stock = null;
 
     public function getId(): ?int
     {
@@ -76,28 +70,6 @@ class Product
         return $this;
     }
 
-    public function getStartAt(): ?\DateTimeInterface
-    {
-        return $this->startAt;
-    }
-
-    public function setStartAt(?\DateTimeInterface $startAt): self
-    {
-        $this->startAt = $startAt;
-        return $this;
-    }
-
-    public function getEndAt(): ?\DateTimeInterface
-    {
-        return $this->endAt;
-    }
-
-    public function setEndAt(?\DateTimeInterface $endAt): self
-    {
-        $this->endAt = $endAt;
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -117,6 +89,18 @@ class Product
     public function setPriceIdStripe(?string $priceIdStripe): self
     {
         $this->priceIdStripe = $priceIdStripe;
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): static
+    {
+        $this->stock = $stock;
+
         return $this;
     }
 }

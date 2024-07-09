@@ -16,10 +16,12 @@ class CartController extends AbstractController
         $session = $request->getSession();
         $cartTotal = 0;
 
+// $session->remove('cart');
+
         // Calculate cart total
         if (!is_null($session->get('cart')) && count($session->get('cart')) > 0) {
             foreach ($session->get('cart')['id'] as $key => $productId) {
-                $cartTotal += floatval($session->get('cart')['price'][$key]) * $session->get('cart')['stock'][$key];
+                $cartTotal += floatval($session->get('cart')['price'][$key]) * $session->get('cart')['quantity'][$key];
             }
         }
 
@@ -29,36 +31,37 @@ class CartController extends AbstractController
         ]);
     }
 
-    #[Route('/cart/{idProduct}', name: 'app_cart_add', methods: ['POST'])]
+    #[Route('/cart/{idProduct}', name: 'app_cart_add', methods: ['POST', 'GET'])]
     public function addProduct(Request $request, ProductRepository $productRepository, int $idProduct): Response
     {
         $session = $request->getSession();
         $cart = $session->get('cart');
-
         // Validate quantity
-        $quantity = $request->request->getInt('quantity');
+        $quantity = 1;
         $product = $productRepository->find($idProduct);
+
+        // dd($product);
 
         if ($quantity <= 0 || $quantity > $product->getStock()) {
             $this->addFlash('error', 'Quantité invalide. Ce produit est disponible en ' . $product->getStock() . ' exemplaires maximum.');
-            return $this->redirectToRoute('app_product_show', ['id' => $idProduct]);
+            return $this->redirectToRoute('product_show', ['idProduct' => $idProduct]);
         }
 
         // Add product to cart
         $cart['id'][] = $product->getId();
         $cart['name'][] = $product->getName();
-        $cart['text'][] = $product->getText();
+        $cart['description'][] = $product->getDescription();
         $cart['picture'][] = $product->getPicture();
         $cart['price'][] = $product->getPrice();
         $cart['priceIdStripe'][] = $product->getPriceIdStripe();
-        $cart['stock'][] = $quantity;
+        $cart['quantity'][] = $quantity;
 
         $session->set('cart', $cart);
 
         // Calculate cart total
         $cartTotal = 0;
         foreach ($cart['id'] as $key => $productId) {
-            $cartTotal += floatval($cart['price'][$key]) * $cart['stock'][$key];
+            $cartTotal += floatval($cart['price'][$key]) * $cart['quantity'][$key];
         }
 
         return $this->render('cart/index.html.twig', [

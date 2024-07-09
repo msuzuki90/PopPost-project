@@ -76,6 +76,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'Follows')]
     private Collection $Followers;
 
+    #[ORM\Column(length: 255)]
+    private ?string $firstName = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $lastName = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $address = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $postalCode = null;
+
     public function __construct()
     {
         $this->liked = new ArrayCollection();
@@ -344,6 +356,54 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->Followers->removeElement($follower)) {
             $follower->unFollow($this);
         }
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): static
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): static
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(string $postalCode): static
+    {
+        $this->postalCode = $postalCode;
 
         return $this;
     }

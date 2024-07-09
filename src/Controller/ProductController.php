@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -16,80 +19,12 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, ImageService $imageService, AuthorizationCheckerInterface $authorizationChecker): Response
-    {
-
-        if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
-
-        }
-        $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $fileName = $imageService->copyImage("picture", $this->getParameter("product_picture_directory"), $form);
-            $product->setPicture($fileName);
-            $entityManager->persist($product);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('product/new.html.twig', [
-            'product' => $product,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
-    public function show(Product $product): Response
+    #[Route('/product/{idProduct}', name: 'product_show', methods: ['GET'])]
+    public function showProduct(ProductRepository $productRepository, 
+        int $idProduct): Response
     {
         return $this->render('product/show.html.twig', [
-            'product' => $product,
+            'product' => $productRepository->find($idProduct),
         ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, EntityManagerInterface $entityManager, ImageService $imageService, AuthorizationCheckerInterface $authorizationChecker): Response
-    {
-        
-        if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
-
-        }
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $fileName = $imageService->copyImage("picture", $this->getParameter("product_picture_directory"), $form);
-            $product->setPicture($fileName);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('product/edit.html.twig', [
-            'product' => $product,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
-    public function delete(Request $request, Product $product, EntityManagerInterface $entityManager, AuthorizationCheckerInterface $authorizationChecker): Response
-    {
-        
-        if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
-
-        }
-        
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($product);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -27,58 +27,57 @@ class PaymentController extends AbstractController
     public function checkout(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
-        
-        // Check if user is authenticated
-        if (!$user) {
-            // Redirect to login page or homepage
-            return $this->redirectToRoute('app_login'); // Replace with appropriate route
-        }
-
-        // Récupération du panier depuis la session
+        // je récupère ma session panier
         $productsInSession = $request->getSession()->get('cart');
-        
-        if (!empty($productsInSession)) {
-            // Définition de la clé secrète de Stripe
+
+        if(!empty($productsInSession)) {
+
+            // Définir la clé secrète de Stripe
+            // récupérer ma session stripe via ma clé stripe
             \Stripe\Stripe::setApiKey($this->getParameter('app.stripe_key'));
             
-            // Création du tableau des produits pour Stripe
+            // je mets tous mes produits de mon panier dans un tableau php
             $products = [];
-            for ($i = 0; $i < count($productsInSession["id"]); $i++) {
+    
+            for($i = 0; $i < count($productsInSession["id"]); $i++) {
                 $products[] = [
                     "price" => $productsInSession["priceIdStripe"][$i],
                     "quantity" => $productsInSession["quantity"][$i]
                 ];
             }
-            
-            // Création de la session de paiement Stripe
+    
+            // afficher un formulaire de paiement avec une session de paiement stripe
             $session = \Stripe\Checkout\Session::create([
                 'payment_method_types' => ['card'],
                 'currency' => 'eur',
-                'line_items' => [$products],
+                'line_items' => [
+                    $products
+                ],
                 'allow_promotion_codes' => true,
-                'customer_email' => $user->getEmail(), // Ensure $user is not null here
+                'customer_email' => $user->getEmail(),
                 'mode' => 'payment',
                 'success_url' => $this->generateUrl('app_stripe_success', [], UrlGeneratorInterface::ABSOLUTE_URL),
                 'cancel_url' => $this->generateUrl('app_stripe_error', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                // 'client_reference_id' => 1
             ]);
-            
-            // Création d'un objet Payment et enregistrement en base de données
+    
+    
+            // créer un paiement en bdd
+            // pour stocker les informations liées à la session de paiement stripe
             $payment = new Payment();
-            $payment->setUser($user)
+            $payment->setUser($this->getUser())
                 ->setSessionID($session['id'])
-                ->setPaymentStatus('pending') // You may adjust based on your payment flow
+                ->setPaymentStatus($session['payment_status'])
                 ->setCreationDate(new \DateTime())
                 ->setSuccessPageExpired(false)
-                ->setPrice($session['amount_total'] / 100); // Assuming you need to store the amount in cents
-            
+                ->setPrice($session['amount_total'] / 100);
             $entityManager->persist($payment);
             $entityManager->flush();
-            
-            // Redirection vers l'URL de paiement Stripe
+    
             return $this->redirect($session->url, 303);
+
         } else {
-            // Si le panier est vide, rediriger vers la page d'accueil
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_micro_post');
         }
     }
 
@@ -111,7 +110,7 @@ class PaymentController extends AbstractController
             $session = \Stripe\Checkout\Session::retrieve($lastPayment->getSessionID());
             
             // Vérification si la page SUCCESS a déjà été visitée et si le paiement est confirmé
-            if (!$lastPayment->isSuccessPageExpired() && $session['payment_status'] == "paid") {
+            if (!$lastPayment->getSuccessPageExpired() && $session['payment_status'] == "paid") {
                 // Mise à jour du statut du paiement
                 $lastPayment->setPaymentStatus($session['payment_status'])
                     ->setSubscriptionId($session['subscription'])
@@ -162,7 +161,7 @@ class PaymentController extends AbstractController
                         'amount' => $order->getTotal(),
                         'invoiceNumber' => $order->getId(),
                         'date' => new \DateTime(),
-                        'orderDetails' => $orderDetailsRepository->findBy(['orderNumber' => $order->getId()])
+                        'orderDetails' => $orderDetailsRepository->findBy(['id_order' => $order->getId()])
                     ]);
                     
                     $dompdf->loadHtml($html);
@@ -178,13 +177,13 @@ class PaymentController extends AbstractController
                         ->from($this->getParameter('app.mailAddress'))
                         ->to($user->getEmail())
                         ->subject("Facture Blog Afpa 2024")
-                        ->htmlTemplate("invoice/email.html.twig")
+                        ->htmlTemplate("invoices/email.html.twig")
                         ->context([
                             'user' => $user,
                             'amount' => $order->getTotal(),
                             'invoiceNumber' => $order->getId(),
                             'date' => new \DateTime(),
-                            'orderDetails' => $orderDetailsRepository->findBy(['orderNumber' => $order->getId()])
+                            'orderDetails' => $orderDetailsRepository->findBy(['id_order' => $order->getId()])
                         ])
                         ->attach($finalInvoice, sprintf('facture-%s-blog-afpa.pdf', $order->getId()));
                     
@@ -202,14 +201,14 @@ class PaymentController extends AbstractController
                         'amount' => $order->getTotal(),
                         'invoiceNumber' => $order->getId(),
                         'date' => new \DateTime(),
-                        'orderDetails' => $orderDetailsRepository->findBy(['orderNumber' => $order->getId()])
+                        'orderDetails' => $orderDetailsRepository->findBy(['id_order' => $order->getId()])
                     ]);
                 }
             }
         }
         
         // Redirection vers la page d'accueil si le traitement n'est pas nécessaire
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_micro_post');
     }
 
     #[Route('/payment/error', name: 'app_stripe_error')]

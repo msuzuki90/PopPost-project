@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\MicroPost;
+use App\Entity\Product;
 use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -69,5 +70,18 @@ class AppFixtures extends Fixture
         $manager->persist($microPost3);
 
         $manager->flush();
+
+        $product = new Product;
+        $product->setName("Product 1");
+        $product->setPicture("logo.png");
+        $product->setPrice(93);
+        $product->setPriceIdStripe("prod_QRT9s0KifeiLza");
+        $product->setDescription("super description qui déchire");
+        $product->setStock(10);
+
+        $manager->persist($product);
+
+        $manager->flush();
+
     }
 }
