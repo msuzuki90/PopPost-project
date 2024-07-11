@@ -51,8 +51,7 @@ class MicroPostController extends AbstractController
     {
         return $this->render('micro_post/show.html.twig', [
             'post' => $post,
-            'isCommentPage' => true 
-            
+            'isCommentPage' => false 
         ]);
     }
 
@@ -62,71 +61,43 @@ class MicroPostController extends AbstractController
     #[IsGranted('ROLE_VERIFIED')]
     public function add(
         Request $request,
-        //MicroPostRepository $posts, 
         EntityManagerInterface $entityManager,
         SluggerInterface $slugger,
-    ): Response
-    {
-        // $this->denyAccessUnlessGranted(
-        //     'PUBLIC_ACCESS'
-        // );
-        $post = new Micropost();
+    ): Response {
+        $post = new MicroPost();
         $form = $this->createForm(MicroPostType::class, $post);
         $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()){
-            //Add comment start here
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
             $post->setAuthor($this->getUser());
 
-            //Upload start here
             $commentImageFile = $form->get('commentImage')->getData();
-        
-            if($commentImageFile){
-                $originalFileName = pathinfo(
-                    $commentImageFile->getClientOriginalName(), PATHINFO_FILENAME
-                    //PHP docs: Returns information about a file path (in our case the original file name from the user)
-                );
-                $saveFileName = $slugger->slug($originalFileName);
-                //symfony doc: safeFileName
-                $newFileName = $saveFileName . '-' . uniqid() . '.' . $commentImageFile->guessExtension();
+            if ($commentImageFile) {
+                $originalFileName = pathinfo($commentImageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFileName = $slugger->slug($originalFileName);
+                $newFileName = $safeFileName . '-' . uniqid() . '.' . $commentImageFile->guessExtension();
+
                 try {
-                    $commentImageFile->move(
-                        $this->getParameter('comment_directory'),
-                        //configuration should be moved away from logic and code 
-                        $newFileName
-                    );
+                    $commentImageFile->move($this->getParameter('comment_directory'), $newFileName);
                     $post->setPicture($newFileName);
-                }catch (FileException $e) {
+                } catch (FileException $e) {
                     $this->addFlash('error', 'Failed to upload image');
                     return $this->redirectToRoute('app_micro_post_add');
                 }
             }
 
-            // Upload Flush start here
-            // $entityManager->persist($post);
-            // $entityManager->flush();
-
-
-            //ENTITY MANAGER START HERE
             $entityManager->persist($post);
             $entityManager->flush();
 
-            //add Flash Message
-            $this->addFlash('success','Your PopPost has been created... Check it out!');
-            //Redirect
-            return $this->redirectToRoute(
-                'app_micro_post'
-            );
+            $this->addFlash('success', 'Your PopPost has been created... Check it out!');
 
+            return $this->redirectToRoute('app_micro_post_show', ['post' => $post->getId()]);
         }
-        
-        return $this->render('micro_post/add.html.twig',
-        [
-            'form'=> $form->createView()
-            
+
+        return $this->render('micro_post/add.html.twig', [
+            'form' => $form->createView()
         ]);
-            
     }
 
 

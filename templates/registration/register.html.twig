@@ -32,6 +32,34 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
+                    {{ form_label(registrationForm.firstName, 'First Name', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}}) }}
+                    {{ form_widget(registrationForm.firstName, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
+                    {{ form_errors(registrationForm.firstName) }}
+                </div>
+
+                <div>
+                    {{ form_label(registrationForm.lastName, 'Last Name', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}}) }}
+                    {{ form_widget(registrationForm.lastName, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
+                    {{ form_errors(registrationForm.lastName) }}
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    {{ form_label(registrationForm.address, 'Address', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}}) }}
+                    {{ form_widget(registrationForm.address, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
+                    {{ form_errors(registrationForm.address) }}
+                </div>
+
+                <div>
+                    {{ form_label(registrationForm.postalCode, 'Code Postal', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}}) }}
+                    {{ form_widget(registrationForm.postalCode, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
+                    {{ form_errors(registrationForm.postalCode) }}
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
                     {{form_label(registrationForm.plainPassword.first,'Password', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}})}}
                     {{form_widget(registrationForm.plainPassword.first, {'attr': {'class':'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}})}}
                     {{form_errors(registrationForm.plainPassword.first)}}

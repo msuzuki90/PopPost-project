@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -19,6 +20,20 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email')
+            ->add('firstName', TextType::class, [
+                'label' => 'First Name',
+            ])
+            ->add('lastName', TextType::class, [
+                'label' => 'Last Name',
+            ])
+            ->add('address', TextType::class, [
+                'label' => 'First Name',
+            ])
+            ->add('postalCode', TextType::class, [
+                'label' => 'Last Name',
+            ])
+
+            
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

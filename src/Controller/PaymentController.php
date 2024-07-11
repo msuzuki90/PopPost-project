@@ -176,7 +176,7 @@ class PaymentController extends AbstractController
                     $email = (new TemplatedEmail())
                         ->from($this->getParameter('app.mailAddress'))
                         ->to($user->getEmail())
-                        ->subject("Facture Blog Afpa 2024")
+                        ->subject("Facture PopPost Market")
                         ->htmlTemplate("invoices/email.html.twig")
                         ->context([
                             'user' => $user,
