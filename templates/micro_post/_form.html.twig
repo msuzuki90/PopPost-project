@@ -1,33 +1,35 @@
-{{form_start(form, {'attr':{'novalidate':'novalidate'}})}}
+<div class="max-w-6xl mx-auto">
+    {{form_start(form, {'attr':{'novalidate':'novalidate'}})}}
 
-    <div>{{form_errors(form)}}</div>
+        <div>{{form_errors(form)}}</div>
 
-    <div>
-        {{form_label(form.Title, 'Your PopPost title goes here!', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}})}}
-        {{form_widget(form.Title, {'attr': {'class':'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}})}}
-        {{form_errors(form.Title)}}
-    </div>
-
-    <div>
-        {{form_label(form.Text, 'Your PopPost text goes here!', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}})}}
-        {{form_widget(form.Text, {'attr': {'class':'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}})}}
-        {{form_errors(form.Text)}}
-    </div>
-
-    <div>
-        <div class="mt-8">
-            {{ form_label(form.commentImage, 'Add a Picture', {'label_attr': {'class': 'shadow-sm border-transparent bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-900 cursor-pointer rounded-md border p-2'}}) }}
-            {{ form_widget(form.commentImage, {'attr': {'class': 'hidden'}}) }}
-            {{ form_errors(form.commentImage) }}
+        <div>
+            {{form_label(form.Title, 'Your PopPost title goes here!', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}})}}
+            {{form_widget(form.Title, {'attr': {'class':'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}})}}
+            {{form_errors(form.Title)}}
         </div>
-    </div>
 
-    <div>
-        <button type='submit' class="block w-full shadow-sm border-transparent bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white rounded-md border p-2 mt-4 mb-2">
-            Save
-        </button>
-    </div>
+        <div>
+            {{form_label(form.Text, 'Your PopPost text goes here!', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}})}}
+            {{form_widget(form.Text, {'attr': {'class':'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}})}}
+            {{form_errors(form.Text)}}
+        </div>
 
-{{form_end(form)}}
+        <div>
+            <div class="mt-8">
+                {{ form_label(form.commentImage, 'Add a Picture', {'label_attr': {'class': 'shadow-sm border-transparent bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-900 cursor-pointer rounded-md border p-2'}}) }}
+                {{ form_widget(form.commentImage, {'attr': {'class': 'hidden'}}) }}
+                {{ form_errors(form.commentImage) }}
+            </div>
+        </div>
+
+        <div>
+            <button type='submit' class="block w-full shadow-sm border-transparent bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white rounded-md border p-2 mt-4 mb-2">
+                Save
+            </button>
+        </div>
+
+    {{form_end(form)}}
+</div>
 
 

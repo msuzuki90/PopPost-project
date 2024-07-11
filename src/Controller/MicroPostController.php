@@ -6,7 +6,6 @@ use App\Entity\Comment;
 use App\Entity\MicroPost;
 use App\Form\CommentType;
 use App\Form\MicroPostType;
-use App\Repository\CommentRepository;
 use App\Repository\MicroPostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -52,6 +51,7 @@ class MicroPostController extends AbstractController
     {
         return $this->render('micro_post/show.html.twig', [
             'post' => $post,
+            'isCommentPage' => false 
         ]);
     }
 
@@ -61,71 +61,43 @@ class MicroPostController extends AbstractController
     #[IsGranted('ROLE_VERIFIED')]
     public function add(
         Request $request,
-        //MicroPostRepository $posts, 
         EntityManagerInterface $entityManager,
         SluggerInterface $slugger,
-    ): Response
-    {
-        // $this->denyAccessUnlessGranted(
-        //     'PUBLIC_ACCESS'
-        // );
-        $post = new Micropost();
+    ): Response {
+        $post = new MicroPost();
         $form = $this->createForm(MicroPostType::class, $post);
         $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()){
-            //Add comment start here
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
             $post->setAuthor($this->getUser());
 
-            //Upload start here
             $commentImageFile = $form->get('commentImage')->getData();
-        
-            if($commentImageFile){
-                $originalFileName = pathinfo(
-                    $commentImageFile->getClientOriginalName(), PATHINFO_FILENAME
-                    //PHP docs: Returns information about a file path (in our case the original file name from the user)
-                );
-                $saveFileName = $slugger->slug($originalFileName);
-                //symfony doc: safeFileName
-                $newFileName = $saveFileName . '-' . uniqid() . '.' . $commentImageFile->guessExtension();
+            if ($commentImageFile) {
+                $originalFileName = pathinfo($commentImageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFileName = $slugger->slug($originalFileName);
+                $newFileName = $safeFileName . '-' . uniqid() . '.' . $commentImageFile->guessExtension();
+
                 try {
-                    $commentImageFile->move(
-                        $this->getParameter('comment_directory'),
-                        //configuration should be moved away from logic and code 
-                        $newFileName
-                    );
+                    $commentImageFile->move($this->getParameter('comment_directory'), $newFileName);
                     $post->setPicture($newFileName);
-                }catch (FileException $e) {
+                } catch (FileException $e) {
                     $this->addFlash('error', 'Failed to upload image');
                     return $this->redirectToRoute('app_micro_post_add');
                 }
             }
 
-            // Upload Flush start here
-            // $entityManager->persist($post);
-            // $entityManager->flush();
-
-
-            //ENTITY MANAGER START HERE
             $entityManager->persist($post);
             $entityManager->flush();
 
-            //add Flash Message
-            $this->addFlash('success','Your PopPost has been created... Check it out!');
-            //Redirect
-            return $this->redirectToRoute(
-                'app_micro_post'
-            );
+            $this->addFlash('success', 'Your PopPost has been created... Check it out!');
 
+            return $this->redirectToRoute('app_micro_post_show', ['post' => $post->getId()]);
         }
-        
-        return $this->render('micro_post/add.html.twig',
-        [
-            'form'=> $form->createView()
-            
+
+        return $this->render('micro_post/add.html.twig', [
+            'form' => $form->createView()
         ]);
-            
     }
 
 
@@ -160,18 +132,15 @@ class MicroPostController extends AbstractController
         ]);
             
     }
-
+    
     #[Route('/micro-post/{post}/comment', name: 'app_micro_post_comment')]
-    #[IsGranted('ROLE_COMMENTER')]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    #[IsGranted('ROLE_VERIFIED')]
     public function addComment(
         MicroPost $post, 
         Request $request, 
-        //CommentRepository $comments, 
-        EntityManagerInterface $entityManager): Response
-    {
-        // $this->denyAccessUnlessGranted(
-        //     'IS_AUTHENTICATED_FULLY'
-        // );
+        EntityManagerInterface $entityManager
+    ): Response {
         $form = $this->createForm(CommentType::class, new Comment());
 
         $form->handleRequest($request);
@@ -183,22 +152,42 @@ class MicroPostController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            //add Flash Message
-            $this->addFlash('success','Express Yourself! Your Comment has been added!');
-            //Redirect
+            // Add Flash Message
+            $this->addFlash('success', 'Express Yourself! Your Comment has been added!');
+
+            // Redirect
             return $this->redirectToRoute(
                 'app_micro_post_show',
-                ['post'=>$post->getId()]
+                ['post' => $post->getId()]
             );
-
         }
-        
-        return $this->render('micro_post/comment.html.twig',
-        [
-            'form'=> $form,
-            'post'=>$post
+
+        return $this->render('micro_post/comment.html.twig', [
+            'form' => $form->createView(),
+            'post' => $post,
+            'isCommentPage' => true  // Add this parameter to indicate it's the comment page
         ]);
-            
     }
+
+
+    #[Route('/micro-post/{post}/delete', name: 'app_micro_post_delete', methods: ['POST'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    #[IsGranted('ROLE_VERIFIED')]
+    //#[IsGranted('ROLE_COMMENTER')]
+    public function delete(MicroPost $post, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($post);
+            $entityManager->flush();
+            
+            $this->addFlash('success', 'Your post has been deleted successfully!');
+        } else {
+            $this->addFlash('error', 'Invalid CSRF token. Deletion failed.');
+        }
+
+        return $this->redirectToRoute('app_micro_post');
+    }
+
+    
 
 }

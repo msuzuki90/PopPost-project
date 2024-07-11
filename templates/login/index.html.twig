@@ -9,33 +9,39 @@
 
 {% block body %}
 
-<form action="{{ path('app_login') }}" method="POST">
-    <div>
-        <label class="block text-sm text-gray-700 dark:text-gray-300 font-medium">Email</label>
-        <input type="text" name="_username" value="{{lastUsername}}" class="block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2"/>
+
+<section id="hero">
+    {% include "nav.html.twig" %}
+    <div class="max-w-6xl font-alata font-bold mx-auto px-10 pt-16" >
+        <form action="{{ path('app_login') }}" method="POST">
+            <div class="mb-10">
+                <label class="block text-sm text-gray-700 dark:text-gray-300 font-medium">Email</label>
+                <input type="text" name="_username" value="{{lastUsername}}" class="block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2"/>
+            </div>
+
+            <div class="mb-10">
+                <label class="block text-sm text-gray-700 dark:text-gray-300 font-medium">Password</label>
+                <input type="password" name="_password" class="block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2" />
+            </div>
+
+            <input type="hidden" name="_target_path" value="/micro-post"/>
+            
+            <div>
+                <button type='submit' class="block w-full shadow-sm border-transparent bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white rounded-md border p-2 mt-4 mb-2">
+                    Login!
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-2 text-center text-gray-600 dark:text-white">
+            Forgot your Password?
+            <a href ="{{ path('app_forgot_password_request')}}" class="font-semibold leading-6 text-gray-100 hover:text-gray-500"> Click Here! </a>
+        </div>
+
+        <div class="mt-2 text-center text-gray-600 dark:text-white">
+            Don't have a PopPost account? <a href ="{{ path('app_register')}}" class="font-semibold leading-6  text-gray-100 hover:text-gray-500"> Register Here! </a>
+        </div>
     </div>
 
-    <div>
-        <label class="block text-sm text-gray-700 dark:text-gray-300 font-medium">Password</label>
-        <input type="password" name="_password" class="block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2" />
-    </div>
-
-    <input type="hidden" name="_target_path" value="/micro-post"/>
-    
-    <div>
-        <button type='submit' class="block w-full shadow-sm border-transparent bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white rounded-md border p-2 mt-4 mb-2">
-            Login!
-        </button>
-    </div>
-</form>
-
-    <div class="mt-2 text-center text-gray-600 dark:text-gray-400">
-        Forgot your Password?
-        <a href ="{{ path('app_forgot_password_request')}}" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"> Click Here! </a>
-    </div>
-
-    <div class="mt-2 text-center text-gray-600 dark:text-gray-400">
-        Don't have a PopPost account? <a href ="{{ path('app_register')}}" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"> Register Here! </a>
-    </div>
-
+</section>
 {% endblock %}

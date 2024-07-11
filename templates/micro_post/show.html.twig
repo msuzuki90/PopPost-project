@@ -1,34 +1,32 @@
+{# templates/micro_post/show.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Post - {{post.Title}}!{% endblock %}
+{% block title %}Post - {{ post.Title }}!{% endblock %}
 
 {% block bread %}
     → hmmm...intriguing Post
 {% endblock %}
 
-
-{% block body %}    
+{% block body %}
+{% include "nav.html.twig" %}
+<div class="max-w-6xl mx-auto">
     <div class="flex items-center mb-4">
         <div>
             {{ include('shared/_avatar.html.twig', {profile: post.author.userProfile, size:16}) }}
         </div>
         <div class="ml-4">
-
             <div class="text-xl">
-                {{ post.author.userProfile.name ?? post.author.email}}
+                {{ post.author.userProfile.name ?? post.author.email }}
             </div>
-
             <div class="text-sm text-gray-500 dark:text-gray-400">
-                <a href="{{ path('app_profile', { id: post.author.id })}}">
+                <a href="{{ path('app_profile', { id: post.author.id }) }}">
                     {{ post.author.email }}
                 </a>
             </div>
-
         </div>
-
     </div>
 
-    {{include('micro_post/_post.html.twig',{post:post})}}
+    {{ include('micro_post/_post.html.twig', { post: post }) }}
 
     <div class="mt-4">
         {% for comment in post.comments %}
@@ -39,19 +37,19 @@
                     </div>
                     <div>
                         <div class="font-medium text-gray-800 dark:text-gray-300">
-                            <a href="{{ path('app_profile', { id: comment.author.id })}}">
-                                {{comment.author.email}}
-                            </a>    
+                            <a href="{{ path('app_profile', { id: comment.author.id }) }}">
+                                {{ comment.author.email }}
+                            </a>
                         </div>
-                        <div class="font-light text-gray-500 dark:text-gray-500">{{comment.created | date("M j, Y")}}</div>
+                        <div class="font-light text-gray-500 dark:text-gray-500">{{ comment.created | date("M j, Y") }}</div>
                     </div>
                 </div>
                 <div class="flex pb-1">
-                    <div class="border border-gray-300 dark:border-gray-600 ml-4 mr-6 pb-12 "></div>
-                    <div>{{comment.text}}</div>
+                    <div class="border border-gray-300 dark:border-gray-600 ml-4 mr-6 pb-12"></div>
+                    <div>{{ comment.text }}</div>
                 </div>
             </div>
         {% endfor %}
     </div>
-
+</div>
 {% endblock %}

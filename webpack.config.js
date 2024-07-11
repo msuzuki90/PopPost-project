@@ -22,10 +22,10 @@ Encore
      */
     
     //OLD CONFIGURATION THAT WORK
-    .addEntry('app', './assets/styles/app.scss')
+    //.addEntry('app', './assets/app.scss')
 
     //CONFIGURATION THAT DOESNT WORK FOR SOME REASON
-    //.addEntry('app', './assets/app.js')
+    .addEntry('app', './assets/app.js')
 
     //seperate entry point for scss
     //.addStyleEntry('styles/app', './assets/styles/app.scss')

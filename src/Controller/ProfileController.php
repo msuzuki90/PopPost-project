@@ -17,8 +17,8 @@ class ProfileController extends AbstractController
     public function show(User $user, Request $request, PaginatorInterface $paginator,
     MicroPostRepository $microPostRepository): Response
     {
-        
-        $queryBuilder = $microPostRepository->findByUserOrderedByDateDesc($this->getUser());
+        $queryBuilder = $microPostRepository->findByUserOrderedByDateDesc($user);
+        //$queryBuilder = $microPostRepository->findByUserOrderedByDateDesc($this->getUser());
 
         $pagination = $paginator->paginate(
             $queryBuilder,
@@ -29,6 +29,7 @@ class ProfileController extends AbstractController
         return $this->render('profile/show.html.twig', [
             'user'=>$user,
             'posts' => $pagination,
+
         ]);
     }
 

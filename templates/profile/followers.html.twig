@@ -10,6 +10,7 @@
 {% block body %}
     {{ include('profile/_profile_header.html.twig' )}}    
     {{ include('profile/_profile_tabs.html.twig' )}}
-    {{ include('follower/_follower_list.html.twig', {users: user.followers} )}}
-    
+    <div class="mx-20">
+        {{ include('follower/_follower_list.html.twig', {users: user.followers} )}}
+    <div>
 {% endblock %}
