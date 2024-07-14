@@ -2,15 +2,13 @@
 
 {% block title %}Create Your Profile!{% endblock %}
 
-
-
-
 {% block body %}
-    {% include "nav.html.twig" %}{% block bread %}
+    {% include "nav.html.twig" %}
+    {# {% block bread %} #}
         {# <div class="mx-10">
             → Create Your Profile!
         </div> #}
-    {% endblock %}
+    {# {% endblock %} #}
 
     {{ include('settings_profile/_settings_profile_tabs.html.twig')}}
     {{ form_start(form) }}

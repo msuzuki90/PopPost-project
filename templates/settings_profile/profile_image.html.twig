@@ -2,23 +2,26 @@
 
 {% block title %}Profile Setting!{% endblock %}
 
-{% block bread %}
+{# {% block bread %}
 → Your Profile Avatar!
-{% endblock %}
+{% endblock %} #}
 
 {% block body %}
+    {% include "nav.html.twig" %}
     {{ include('settings_profile/_settings_profile_tabs.html.twig') }}
 
-    <div class="flex items-center">
+    <div class="max-w-6xl mx-auto text-center px-10 pt-16">
         {{ include('shared/_avatar.html.twig', {'size': 32, profile: app.user.userProfile}) }}
 
-        <div class="ml-16">
+        <div class="mt-8">
             {{ form_start(form, {'attr': {'novalidate': 'novalidate'} }) }}
-                {{ form_label(form.profileImage, 'Change', {'label_attr': {'class': 'shadow-sm border-transparent bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-900 cursor-pointer rounded-md border p-2'}}) }}
+                {{ form_label(form.profileImage, 'Change', {'label_attr': {'class': 'p-3 px-20 mb-8 rounded-full shadow-lg duration-200 hover:opacity-80 shadow-sm border-transparent bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-900 cursor-pointer rounded-md border'}}) }}
                 {{ form_widget(form.profileImage, {'attr': {'class': 'hidden'}}) }}
                 {{ form_errors(form.profileImage) }}
                 <div>
-                    <button type="submit" class="block w-full shadow-sm border-transparent bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white rounded-md border p-2 mt-4 mb-2">Save Change</button>
+                    <button type="submit" class=" mx-auto shadow-sm border-transparent bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white rounded-md border p-2 px-16 mt-8">
+                        Save Change
+                    </button>
                 </div>
             {{ form_end(form) }}
         </div>

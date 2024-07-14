@@ -9,10 +9,12 @@
 
 {% block body %}
 
-
-<section id="hero">
+<section id="hero" class="login">
+    
     {% include "nav.html.twig" %}
-    <div class="max-w-6xl font-alata font-bold mx-auto px-10 pt-16" >
+
+    
+    <div class="container max-w-6xl font-alata font-bold mx-auto px-10 pt-16" >
         <form action="{{ path('app_login') }}" method="POST">
             <div class="mb-10">
                 <label class="block text-sm text-gray-700 dark:text-gray-300 font-medium">Email</label>

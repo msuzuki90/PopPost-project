@@ -14,12 +14,7 @@
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 		
-		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-			{% block importmap %}
-				{{ importmap('app') }}
-			{% endblock %}
-		{% endblock %}
+
 	</head>
 
 	<body class="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-white ">
@@ -37,5 +32,9 @@
 			{% endfor %}
 			{% block body %}{% endblock %}
 		</div>
+
+		{% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
 	</body>
 </html>

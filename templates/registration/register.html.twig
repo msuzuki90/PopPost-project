@@ -2,9 +2,9 @@
 
 {% block title %}Register{% endblock %}
 
-{% block bread %}
+{# {% block bread %}
     → Register!
-{% endblock %}
+{% endblock %} #}
 
 {% block body %}
 
@@ -12,9 +12,9 @@
     <div class="rounded-md p-2 border-red-300 bg-red-50 border dark:border-red-600 dark:bg-red-700 dark:text-white mb-4" role="alert">{{ flash_error }}</div>
 {% endfor %}
 
-<section id="hero">
-    {% include "nav.html.twig" %}
-    <div class="max-w-6xl font-alata font-bold mx-auto ">
+<section id="hero" class="register">
+     {% include "nav.html.twig" %} 
+    <div class="container max-w-6xl font-alata font-bold mx-auto px-10 pt-16 ">
         {{ form_start(registrationForm) }}
             <div class="text-xl">
                 Basic Information
@@ -93,9 +93,9 @@
         {{ form_end(registrationForm) }}
 
     </div>
-    <div class="mt-2 text-center text-gray-600 dark:text-gray-400  ">
-        Already have a PopPost account? <a href ="{{ path('app_login')}}" class=" text-indigo-600 dark:text-white hover:text-indigo-700 "> Login here </a>
+    <div class="mt-2  text-center text-gray-600 dark:text-gray-400  ">
+        Already have a PopPost account? <a href ="{{ path('app_login')}}" class=" text-indigo-600 dark:text-white hover:text-indigo-700 ">Login here </a>
     </div>
 
-
+</section>
 {% endblock %}
