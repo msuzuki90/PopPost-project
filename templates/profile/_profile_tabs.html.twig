@@ -1,32 +1,34 @@
-    {% embed "shared/_tabs.html.twig" %}
+{% embed "shared/_tabs.html.twig" %}
 
-        {% block tabs %}
+    {% block tabs %}
+        <div class="mx-auto flex md:flex-row">
             {% embed "shared/_tab.html.twig" with { route: 'app_profile'} %}
                 {% block content %}
-                    PopPosts <span class="px-2 rounded-md bg-gray-200 dark: bg-gray-700 ">{{ user.posts.count }}</span>
+                    PopPosts <span class="px-2 rounded-md bg-gray-200 dark:bg-gray-700">{{ user.posts.count }}</span>
                 {% endblock %}
                 {% block path %}
-                {{path('app_profile',{id:user.id})}}
+                    {{ path('app_profile', {id: user.id}) }}
                 {% endblock %}
             {% endembed %}
 
-            {% embed "shared/_tab.html.twig" with { route: 'app_profile_follows', classes: 'ml-2'} %}
+            {% embed "shared/_tab.html.twig" with { route: 'app_profile_follows', classes: 'mx-2 md:mt-0 md:ml-2'} %}
                 {% block content %}
-                    Follows <span class="px-2 rounded-md bg-gray-200 dark: bg-gray-700 ">{{ user.follows.count }}</span>
+                    Follows <span class="px-2 rounded-md bg-gray-200 dark:bg-gray-700">{{ user.follows.count }}</span>
                 {% endblock %}
                 {% block path %}
-                {{path('app_profile_follows',{id:user.id})}}
+                    {{ path('app_profile_follows', {id: user.id}) }}
                 {% endblock %}
             {% endembed %}
 
-            {% embed "shared/_tab.html.twig" with { route: 'app_profile_followers', classes: 'ml-2'} %}
+            {% embed "shared/_tab.html.twig" with { route: 'app_profile_followers', classes: 'md:mt-0 md:ml-2'} %}
                 {% block content %}
-                    Followers <span class="px-2 rounded-md bg-gray-200 dark: bg-gray-700 ">{{ user.followers.count }}</span>
+                    Followers <span class="px-2 rounded-md bg-gray-200 dark:bg-gray-700">{{ user.followers.count }}</span>
                 {% endblock %}
                 {% block path %}
-                {{path('app_profile_followers',{id:user.id})}}
+                    {{ path('app_profile_followers', {id: user.id}) }}
                 {% endblock %}
             {% endembed %}
-        {% endblock %}
+        </div>
+    {% endblock %}
 
-    {% endembed %}
+{% endembed %}
