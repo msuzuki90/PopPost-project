@@ -11,7 +11,7 @@
 {% include "nav.html.twig" %}
 <div class="max-w-6xl mx-auto">
     <div class="flex items-center mb-4">
-        <div>
+        <div class="ml-10">
             {{ include('shared/_avatar.html.twig', {profile: post.author.userProfile, size:16}) }}
         </div>
         <div class="ml-4">
@@ -28,7 +28,7 @@
 
     {{ include('micro_post/_post.html.twig', { post: post }) }}
 
-    <div class="mt-4">
+    <div class="mt-4 ml-10">
         {% for comment in post.comments %}
             <div>
                 <div class="flex items-center">

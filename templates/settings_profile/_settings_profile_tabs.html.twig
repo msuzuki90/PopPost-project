@@ -1,26 +1,25 @@
-    {# {% include "nav.html.twig" %} #}
+{% embed "shared/_tabs.html.twig" %}
 
-    {% embed "shared/_tabs.html.twig" %}
-
-        {% block tabs %}
+    {% block tabs %}
+        <div class="flex flex-row mx-auto">
             {% embed "shared/_tab.html.twig" with { route: 'app_settings_profile'} %} 
-            {# name of folder #}
                 {% block content %}
                     Your Profile Setting
                 {% endblock %}
                 {% block path %}
-                {{path('app_settings_profile')}}
+                    {{ path('app_settings_profile') }}
                 {% endblock %}
             {% endembed %}
 
-            {% embed "shared/_tab.html.twig" with { route: 'app_settings_profile_image', classes: 'ml-2'} %}
+            {% embed "shared/_tab.html.twig" with { route: 'app_settings_profile_image', classes: 'ml-2' } %}
                 {% block content %}
                     Set Your Avatar
                 {% endblock %}
                 {% block path %}
-                {{path('app_settings_profile_image')}}
+                    {{ path('app_settings_profile_image') }}
                 {% endblock %}
             {% endembed %}
-        {% endblock %}
+        </div>
+    {% endblock %}
 
-    {% endembed %}
+{% endembed %}

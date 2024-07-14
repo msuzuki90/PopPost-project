@@ -31,6 +31,7 @@ class MicroPostType extends AbstractType
                             'image/jpeg',
                             'image/png',
                             'image/jpg',
+                            'image/gif',
                         ],
                         //customize error message
                         'mimeTypesMessage'=> 'Please upload a valid PNG or JPEG file'

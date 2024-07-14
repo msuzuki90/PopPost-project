@@ -6,11 +6,18 @@
     <div class="flex items-center justify-center min-h-screen">
         <div class="max-w-6xl w-full mx-auto mt-20">
             <h1 class="text-2xl max-w-6xl mx-auto mb-6 uppercase">Reset your password</h1>
-            {{ form_start(resetForm ) }}
 
+            {% if app.session.flashBag.has('reset_password_error') %}
+                <div class="bg-red-500 text-white text-center py-2 rounded mb-4">
+                    {% for message in app.session.flashBag.get('reset_password_error') %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {{ form_start(resetForm) }}
                 {{ form_row(resetForm.plainPassword.first, {'attr': {'class':'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
                 {{ form_row(resetForm.plainPassword.second, {'attr': {'class':'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
-
                 <button class="block w-full shadow-sm border-transparent bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white rounded-md border p-2 mt-4 mb-2">Reset password</button>
             {{ form_end(resetForm) }}
         </div>

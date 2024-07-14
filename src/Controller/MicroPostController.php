@@ -103,35 +103,42 @@ class MicroPostController extends AbstractController
 
     #[Route('/micro-post/{post}/edit', name: 'app_micro_post_edit')]
     #[IsGranted(MicroPost::EDIT, 'post')]
-    public function edit(MicroPost $post, Request $request,
-        //MicroPostRepository $posts, 
-        EntityManagerInterface $entityManager): Response
+    public function edit(MicroPost $post, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(MicroPostType::class, $post);
-
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()){
             $post = $form->getData();
+            
+            $commentImageFile = $form->get('commentImage')->getData();
+            if ($commentImageFile) {
+                $originalFileName = pathinfo($commentImageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFileName = $slugger->slug($originalFileName);
+                $newFileName = $safeFileName . '-' . uniqid() . '.' . $commentImageFile->guessExtension();
+    
+                try {
+                    $commentImageFile->move($this->getParameter('comment_directory'), $newFileName);
+                    $post->setPicture($newFileName);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Failed to upload image');
+                    return $this->redirectToRoute('app_micro_post_edit', ['post' => $post->getId()]);
+                }
+            }
+    
             $entityManager->persist($post);
             $entityManager->flush();
-
-            //add Flash Message
+    
             $this->addFlash('success','Something had to change? Your PopPost has been updated!');
-            //Redirect
-            return $this->redirectToRoute(
-                'app_micro_post'
-            );
-
+            return $this->redirectToRoute('app_micro_post_show', ['post' => $post->getId()]);
         }
-        
-        return $this->render('micro_post/edit.html.twig',
-        [
-            'form'=> $form,
-            'post'=> $post
+    
+        return $this->render('micro_post/edit.html.twig', [
+            'form' => $form->createView(),
+            'post' => $post
         ]);
-            
     }
+    
     
     #[Route('/micro-post/{post}/comment', name: 'app_micro_post_comment')]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]

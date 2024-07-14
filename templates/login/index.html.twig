@@ -6,19 +6,22 @@
     → Login!
 {% endblock %}
 
-
 {% block body %}
 
 <section id="hero" class="login">
     
     {% include "nav.html.twig" %}
 
-    
-    <div class="container max-w-6xl font-alata font-bold mx-auto px-10 pt-16" >
+    <div class="container max-w-6xl font-alata font-bold mx-auto px-10 pt-16">
+        {% if error %}
+            <div class="bg-red-500 text-white text-center py-2 rounded mb-4">
+                Incorrect username or password.
+            </div>
+        {% endif %}
         <form action="{{ path('app_login') }}" method="POST">
             <div class="mb-10">
                 <label class="block text-sm text-gray-700 dark:text-gray-300 font-medium">Email</label>
-                <input type="text" name="_username" value="{{lastUsername}}" class="block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2"/>
+                <input type="text" name="_username" value="{{ lastUsername }}" class="block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2"/>
             </div>
 
             <div class="mb-10">
@@ -37,13 +40,13 @@
 
         <div class="mt-2 text-center text-gray-600 dark:text-white">
             Forgot your Password?
-            <a href ="{{ path('app_forgot_password_request')}}" class="font-semibold leading-6 text-gray-100 hover:text-gray-500"> Click Here! </a>
+            <a href="{{ path('app_forgot_password_request') }}" class="font-semibold leading-6 text-gray-100 hover:text-gray-500">Click Here!</a>
         </div>
 
         <div class="mt-2 text-center text-gray-600 dark:text-white">
-            Don't have a PopPost account? <a href ="{{ path('app_register')}}" class="font-semibold leading-6  text-gray-100 hover:text-gray-500"> Register Here! </a>
+            Don't have a PopPost account? 
+            <a href="{{ path('app_register') }}" class="font-semibold leading-6 text-gray-100 hover:text-gray-500">Register Here!</a>
         </div>
     </div>
-
 </section>
 {% endblock %}
