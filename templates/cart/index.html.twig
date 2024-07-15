@@ -9,7 +9,7 @@
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-2xl font-bold mb-6">Your Cart</h1>
 
-        {% if cartItems.id is not empty %}
+        {% if cartItems.id is defined and cartItems.id is not empty %}
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:px-10 gap-6">
                 {% for key, id in cartItems.id %}
                     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
@@ -34,7 +34,7 @@
                 </form>
             </div>
         {% else %}
-            <h2 class="text-black text-xl">Your cart is empty.</h2>
+            <h2 class="text-white text-xl">Your cart is empty.</h2>
         {% endif %}
     </div>
 {% endblock %}

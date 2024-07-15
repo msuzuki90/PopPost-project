@@ -2,31 +2,86 @@
 <html>
 <head>
     <title>Confirmation de votre achat</title>
+    <style>
+        body {
+            font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            border-radius: 8px;
+        }
+        h2 {
+            color: #444;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        table td {
+            background-color: #fff;
+        }
+        table tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
 </head>
 <body>
-    <div style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #333;">
-        <h2 style="color: #444;">Confirmation de votre achat</h2>
+    <div class="container">
+        <h2>Confirmation de votre achat</h2>
         <p>Bonjour,</p>
         <p>Merci pour votre achat. Voici les détails de votre commande :</p>
         <ul>
             <li>Numéro de facture : {{ invoiceNumber }}</li>
-            <li>Date : {{ date|date('d-m-y') }}</li>
-            <li>Montant total : {{ amount }} €</li>
+            <li>Date : {{ date|date('d-m-Y') }}</li>
+            <li>Montant total : {{ (amount / 100) | number_format(2, ',', ' ') }} €</li>
         </ul>
         <h3>Produits achetés :</h3>
-        <table style="width: 100%; border-collapse: collapse;">
+        <table>
             <thead>
                 <tr>
-                    <th style="border-bottom: 1px solid #ddd; padding: 8px; text-align: left;">Produit</th>
-                    <th style="border-bottom: 1px solid #ddd; padding: 8px; text-align: right;">Quantité</th>
-                    <th style="border-bottom: 1px solid #ddd; padding: 8px; text-align: right;">Prix</th>
+                    <th>Produit</th>
+                    <th style="text-align: right;">Quantité</th>
+                    <th style="text-align: right;">Prix</th>
                 </tr>
             </thead>
             <tbody>
                 {% for detail in orderDetails %}
                     <tr>
-                        <td style="padding: 8px; border-bottom: 1px solid #eee;">{{ detail.product.name }}</td>
-                        <td style="padding: 8px; border-bottom: 1px solid #eee; text-align: right;">{{ detail.product.price }} €</td>
+                        <td>{{ detail.product.name }}</td>
+                        <td style="text-align: right;">{{ detail.quantity }}</td>
+                        <td style="text-align: right;">{{ (detail.product.price / 100) | number_format(2, ',', ' ') }} €</td>
                     </tr>
                 {% endfor %}
             </tbody>

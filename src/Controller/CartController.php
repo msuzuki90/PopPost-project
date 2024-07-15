@@ -9,13 +9,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CartController extends AbstractController
 {
-    #[Route('/cart', name: 'app_cart')]
-    public function index(Request $request): Response
+    private function initializeCart(Request $request)
     {
         $session = $request->getSession();
-        $cartTotal = 0;
-
-        // Ensure the cart is properly initialized
         if (!$session->has('cart')) {
             $session->set('cart', [
                 'id' => [],
@@ -27,8 +23,16 @@ class CartController extends AbstractController
                 'quantity' => []
             ]);
         }
+    }
 
+    #[Route('/cart', name: 'app_cart')]
+    public function index(Request $request): Response
+    {
+        $this->initializeCart($request);
+
+        $session = $request->getSession();
         $cart = $session->get('cart');
+        $cartTotal = 0;
 
         // Calculate cart total
         if (count($cart['id']) > 0) {
@@ -46,19 +50,9 @@ class CartController extends AbstractController
     #[Route('/cart/add/{idProduct}', name: 'app_cart_add', methods: ['POST', 'GET'], requirements: ['idProduct' => '\d+'])]
     public function addProduct(Request $request, ProductRepository $productRepository, int $idProduct): Response
     {
-        $session = $request->getSession();
-        if (!$session->has('cart')) {
-            $session->set('cart', [
-                'id' => [],
-                'name' => [],
-                'description' => [],
-                'picture' => [],
-                'price' => [],
-                'priceIdStripe' => [],
-                'quantity' => []
-            ]);
-        }
+        $this->initializeCart($request);
 
+        $session = $request->getSession();
         $cart = $session->get('cart');
         $product = $productRepository->find($idProduct);
 
@@ -84,11 +78,6 @@ class CartController extends AbstractController
 
         $session->set('cart', $cart);
 
-        $cartTotal = 0;
-        foreach ($cart['id'] as $key => $productId) {
-            $cartTotal += floatval($cart['price'][$key]) * $cart['quantity'][$key] / 100;
-        }
-
         return $this->redirectToRoute('app_cart');
     }
 
@@ -104,6 +93,8 @@ class CartController extends AbstractController
     #[Route('/cart/remove/{key}', name: 'app_cart_remove', methods: ['GET'], requirements: ['key' => '\d+'])]
     public function removeProduct(Request $request, int $key): Response
     {
+        $this->initializeCart($request);
+
         $session = $request->getSession();
         $cart = $session->get('cart');
 
