@@ -20,8 +20,12 @@
                     <a href="{{ path('app_settings_profile') }}">Profile Settings</a>
                     <div class="mx-2 group-hover:border-b group-hover:border-blue-50"></div>
                 </div>
-                <div class="group text-indigo-400">
+                <div class="group text-indigo-400 font-bold">
                     <a href="{{ path('app_product_index') }}">Shop</a>
+                    <div class="mx-2 group-hover:border-b group-hover:border-blue-50"></div>
+                </div>
+                <div class="group text-center text-green-600 font-bold">
+                    <a href="{{ path('app_cart') }}">Cart</a>
                     <div class="mx-2 group-hover:border-b group-hover:border-blue-50"></div>
                 </div>
                 <div class="group">
@@ -69,6 +73,7 @@
             <a href="{{ path('app_micro_post_add') }}">Add PopPost!</a>
             <a href="{{ path('app_settings_profile') }}">Profile Settings</a>
             <a href="{{ path('app_product_index') }}">Shop</a>
+            <a href="{{ path('app_cart') }}">Cart</a>
             <a href="{{ path('app_logout') }}">Logout</a>
             {% if is_granted('ROLE_EDITOR') %}
                 <a href="{{ path('admin') }}">BackOffice</a>

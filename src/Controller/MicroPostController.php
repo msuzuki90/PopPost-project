@@ -130,7 +130,7 @@ class MicroPostController extends AbstractController
             $entityManager->flush();
     
             $this->addFlash('success','Something had to change? Your PopPost has been updated!');
-            return $this->redirectToRoute('app_micro_post_show', ['post' => $post->getId()]);
+            return $this->redirectToRoute('app_micro_post');
         }
     
         return $this->render('micro_post/edit.html.twig', [

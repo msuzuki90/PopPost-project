@@ -11,6 +11,7 @@ parameters:
     comment_directory: '%kernel.project_dir%/public/uploads/comment_images'
     app.stripe_key: '%env(STRIPE_KEY)%'
     app.mailAddress: '%env(MAIL_ADDRESS)%'
+    product_images_directory: '%kernel.project_dir%/public/uploads/product_images'
 
 services:
     # default configuration for services in *this* file

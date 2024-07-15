@@ -1,90 +1,40 @@
+{# templates/cart/index.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
+{% block title %}Cart{% endblock %}
 
 {% block body %}
-<style>
-/* public/css/cart.css */
-.cart-container {
-    width: 80%;
-    margin: 0 auto;
-}
-
-.cart-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    text-align: left;
-    padding: 8px;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-.cart-total {
-    margin-top: 20px;
-    text-align: right;
-    font-size: 20px;
-}
-
-</style>
-
-
-<div class="cart-container">
-    <h2>Votre panier</h2>
-
-    {% if cartItems is not empty %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Article</th>
-                    <th>Titre</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th>Prix Unitaire</th>
-                    <th>Quantité</th>
-                </tr>
-            </thead>
-            <tbody>
-
-            {% for i in 0..(cartItems.id|length - 1) %}
-                <tr>
-                    <td>{{ cartItems.id[i] }}</td>
-                    <td>{{ cartItems.name[i] }}</td>
-                    <td>{{ cartItems.description[i] }}</td>
-                    <td><img style="width:100px" src="{{ asset('uploads/products/' ~ cartItems.picture[i]) }}" alt="Image de {{ cartItems.name[i] }}" /></td>
-                    <td>{{ cartItems.price[i] }} €</td>
-                    <td>{{ cartItems.quantity[i] }}</td>
-                </tr>
-            {% endfor %}
-
-            </tbody>
-        </table>
-        <div class="cart-total">
-            Total: <span>{{ cartTotal }} €</span>
-        </div>
-
-        <form action="{{path('app_stripe_checkout')}}" method="POST">
-            <input type="submit" name="payer" value="Pay" class="btn btn-outline-secondary">
-        </form>
-
-        <a href="{{path('app_cart_delete')}}" class="btn btn-warning"> Vider le panier </a>
-    {% else %}
-        <h2> Panier vide </h2>
-    {% endif %}
+    {% include "nav.html.twig" %}
     
-</div>
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-2xl font-bold mb-6">Your Cart</h1>
 
+        {% if cartItems.id is not empty %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:px-10 gap-6">
+                {% for key, id in cartItems.id %}
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                        <img class="w-full h-48 object-cover" src="{{ asset('uploads/product_images/' ~ cartItems.picture[key]) }}" alt="{{ cartItems.name[key] }}">
+                        <div class="p-4">
+                            <h2 class="text-xl font-bold">{{ cartItems.name[key] }}</h2>
+                            <p class="text-gray-700">{{ cartItems.description[key] }}</p>
+                            <p class="text-gray-900 font-bold mt-2">{{ (cartItems.price[key] / 100)|number_format(2, ',', ' ') }} €</p>
+                            <p class="text-gray-700">Quantity: {{ cartItems.quantity[key] }}</p>
+                            <a href="{{ path('app_cart_remove', {'key': key}) }}" class="inline-block bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4">Delete</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="mt-8">
+                <h2 class="text-xl font-bold">Total: {{ cartTotal }} €</h2>
+                <a href="{{ path('app_product_index') }}" class="inline-block bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mt-4">Back to Shop</a>
+                <a href="{{ path('app_cart_delete') }}" class="inline-block bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4">Empty Cart</a>
+                <form action="{{ path('app_stripe_checkout') }}" method="POST" class="inline-block">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Pay</button>
+                </form>
+            </div>
+        {% else %}
+            <h2 class="text-black text-xl">Your cart is empty.</h2>
+        {% endif %}
+    </div>
 {% endblock %}
