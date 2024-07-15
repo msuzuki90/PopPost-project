@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact Us!{% endblock %}
+
+{% block body %}
+{% include "nav.html.twig" %}
+
+    <div class="max-w-6xl mx-auto">
+        <h3 class="text-center">Need any assistance? Contact us!</h3>
+
+        {{ form_start(contactForm) }}
+            <div class="mx-4 mt-5">
+                {{ form_label(contactForm.username, 'Username', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}}) }}
+                {{ form_widget(contactForm.username, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
+            </div>
+
+            <div class="mx-4">
+                {{ form_label(contactForm.email, 'E-mail', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}}) }}
+                {{ form_widget(contactForm.email, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
+            </div>
+
+            <div class="mx-4">
+                {{ form_label(contactForm.message, 'Your message', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}}) }}
+                {{ form_widget(contactForm.message, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
+            </div>
+
+            <div class="mx-4">
+                <button type="submit" class="block w-full shadow-sm border-transparent bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white rounded-md border p-2 mt-4 mb-2">
+                    Submit
+                </button>
+            </div>
+
+        {{ form_end(contactForm) }}
+    </div>
+{% endblock %}
