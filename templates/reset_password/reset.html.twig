@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="flex items-center justify-center min-h-screen">
-        <div class="max-w-6xl w-full mx-auto mt-20">
+        <div class="max-w-6xl w-full mx-auto mt-20 md:px-5 px-4">
             <h1 class="text-2xl max-w-6xl mx-auto mb-6 uppercase">Reset your password</h1>
 
             {% if app.session.flashBag.has('reset_password_error') %}

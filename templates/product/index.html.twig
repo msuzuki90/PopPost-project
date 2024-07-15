@@ -3,14 +3,14 @@
 {% block title %}product{% endblock %}
 
 {% block body %}
-
+    {% include "nav.html.twig" %}
     {# {{ include('profile/_profile_header.html.twig' )}}    
     {{ include('profile/_profile_tabs.html.twig' )}} #}
     {# {{ include("micro_post/_post_list.html.twig", {posts: posts} )}} #}
 
     {% for product in products %}
     <!-- Fichier Twig : product_card.html.twig -->
-    <div class="max-w-sm rounded overflow-hidden shadow-lg">
+    <div class=" mx-auto mt-10 max-w-sm rounded overflow-hidden shadow-lg">
         <img class="w-full" src="{{ product.picture }}" alt="{{ product.name }}">
         <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">{{ product.name }}</div>
