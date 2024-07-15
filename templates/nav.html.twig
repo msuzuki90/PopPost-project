@@ -1,14 +1,14 @@
 {# HERO CONTAINER #}
-<div class="container max-w-6xl mx-auto px-6 py-12">
+<div class="container max-w-6xl mx-auto py-16">
     {# NAV START #}
     <nav class="flex items-center justify-between font-bold">
-        <div class="flex items-center space-x-4 text-4xl md:mr-5">
+        <div class="flex items-center space-x-4 text-4xl md:mr-10 px-6">
             <a href="{{ path('app_micro_post') }}" class="pb-2">Home</a>
         </div>
 
-        <div class="hidden lg:flex h-10 font-alata lg:space-x-8 text-gray-500 dark:text-gray-400">
+        <div class="hidden lg:flex h-10 font-alata md:space-x-3 text-gray-500 dark:text-gray-400">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <div class="group">
+                <div class="group text-center">
                     <a href="{{ path('app_micro_post_add') }}">Add PopPost!</a>
                     <div class="mx-2 group-hover:border-b group-hover:border-blue-50"></div>
                 </div>
@@ -16,8 +16,12 @@
                     <a href="{{ path('app_profile', { id: app.user.id }) }}">{{ app.user.userProfile.name ?? app.user.email }}</a>
                     <div class="mx-2 group-hover:border-b group-hover:border-blue-50"></div>
                 </div>
-                <div class="group">
+                <div class="group text-center">
                     <a href="{{ path('app_settings_profile') }}">Profile Settings</a>
+                    <div class="mx-2 group-hover:border-b group-hover:border-blue-50"></div>
+                </div>
+                <div class="group text-indigo-400">
+                    <a href="{{ path('app_product_index') }}">Shop</a>
                     <div class="mx-2 group-hover:border-b group-hover:border-blue-50"></div>
                 </div>
                 <div class="group">
@@ -50,7 +54,7 @@
             </div>
         </div>
         {# HAMBURGER BUTTON #}
-        <div class="lg:hidden">
+        <div class="lg:hidden px-6">
             <button id="menu-btn" type="button" class="z-40 block hamburger lg:hidden focus:outline-none">
                 <span class="hamburger-top"></span>
                 <span class="hamburger-middle"></span>
@@ -64,6 +68,7 @@
             <a href="{{ path('app_profile', { id: app.user.id }) }}">{{ app.user.userProfile.name ?? app.user.email }}</a>
             <a href="{{ path('app_micro_post_add') }}">Add PopPost!</a>
             <a href="{{ path('app_settings_profile') }}">Profile Settings</a>
+            <a href="{{ path('app_product_index') }}">Shop</a>
             <a href="{{ path('app_logout') }}">Logout</a>
             {% if is_granted('ROLE_EDITOR') %}
                 <a href="{{ path('admin') }}">BackOffice</a>
