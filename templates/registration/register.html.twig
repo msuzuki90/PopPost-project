@@ -19,13 +19,13 @@
             <div class="text-xl">
                 Basic Information
             </div>
-            <div class="text-gray-500 dark:text-white mb-4 pb-4 border-b border-gray-300">
-                Shhhh keep it a secret ...
+            <div class="text-gray-500 dark:text-white mb-4 pb-4 border-b border-gray-300 uppercase">
+                This is Confidential
             </div>
 
 
             <div>
-                {{form_label(registrationForm.email,'Your Email serves as Username', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}})}}
+                {{form_label(registrationForm.email,'Your Email serves as Username if you do not put a profil username', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}})}}
                 {{form_widget(registrationForm.email, {'attr': {'class':'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}})}}
                 {{form_errors(registrationForm.email)}}
             </div>

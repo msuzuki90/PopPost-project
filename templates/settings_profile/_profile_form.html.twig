@@ -1,40 +1,40 @@
 <div class="max-w-6xl mx-auto">
-    <div class="mx-4">
-        {{ form_label(form.Name, 'Your Name', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}}) }}
+    <div class="">
+        {{ form_label(form.Name, 'Profil Username', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}}) }}
         {{ form_widget(form.Name, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
     </div>
 
-    <div class="mx-4">
-        {{ form_label(form.Bio, 'Bio', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}}) }}
+    <div class="">
+        {{ form_label(form.Bio, 'Bio', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}}) }}
         {{ form_widget(form.Bio, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mx-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-            {{ form_label(form.TwitterUsername, 'Twitter username', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}}) }}
+            {{ form_label(form.TwitterUsername, 'Twitter username', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}}) }}
             {{ form_widget(form.TwitterUsername, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
         </div>
 
         <div>
-            {{ form_label(form.WebsiteUrl, 'Website URL', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}}) }}
+            {{ form_label(form.WebsiteUrl, 'Website URL', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}}) }}
             {{ form_widget(form.WebsiteUrl, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mx-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-            {{ form_label(form.Company, 'Company', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}}) }}
+            {{ form_label(form.Company, 'Company', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}}) }}
             {{ form_widget(form.Company, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}  
         </div>
 
         <div>
-            {{ form_label(form.Location, 'Location', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}}) }}
+            {{ form_label(form.Location, 'Location', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}}) }}
             {{ form_widget(form.Location, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 rounded-md border p-2 mt-1 mb-2'}}) }}
         </div>
     </div>
 
-    <div class="mx-4">
-        {{ form_label(form.DateOfBirth, 'Date of birth', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-gray-300 font-medium'}}) }}
+    <div class="">
+        {{ form_label(form.DateOfBirth, 'Date of birth', {'label_attr': {'class': 'block text-sm text-gray-700 dark:text-white font-medium'}}) }}
         {{ form_widget(form.DateOfBirth, {'attr': {'class': 'block w-full shadow-sm border-gray-300 dark:border-transparent dark:text-gray-800 bg-white rounded-md border p-2 mt-1 mb-2'}}) }}
     </div>
 </div>
