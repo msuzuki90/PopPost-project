@@ -1,5 +1,4 @@
 <?php
-// src/Service/EmailService.php
 namespace App\Service;
 
 use Symfony\Component\Mailer\MailerInterface;
@@ -25,4 +24,5 @@ class EmailService
 
         $this->mailer->send($email);
     }
-}
+} 
+
