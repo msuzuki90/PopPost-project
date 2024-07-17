@@ -25,7 +25,7 @@ services:
     #App\Entity\User:  
         #autowire: true added this parameter because encountering error where autowire argument $user has been profile picture did not change
 
-    App\Service\EmailService:
+    App\service\EmailService:
         arguments:
             $mailer: '@mailer'
     # makes classes in src/ available to be used as services
