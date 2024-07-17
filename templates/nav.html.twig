@@ -20,10 +20,6 @@
                     <a href="{{ path('app_settings_profile') }}">Profile Settings</a>
                     <div class="mx-2 group-hover:border-b group-hover:border-blue-50"></div>
                 </div>
-                 <div class="group text-center">
-                    <a href="{{ path('app_contact') }}">Assistance</a>
-                    <div class="mx-2 group-hover:border-b group-hover:border-blue-50"></div>
-                </div>
                 <div class="group text-indigo-400 font-bold">
                     <a href="{{ path('app_product_index') }}">Shop</a>
                     <div class="mx-2 group-hover:border-b group-hover:border-blue-50"></div>
@@ -76,7 +72,6 @@
             <a href="{{ path('app_profile', { id: app.user.id }) }}">{{ app.user.userProfile.name ?? app.user.email }}</a>
             <a href="{{ path('app_micro_post_add') }}">Add PopPost!</a>
             <a href="{{ path('app_settings_profile') }}">Profile Settings</a>
-            <a href="{{ path('app_contact') }}">Assistance</a>
             <a href="{{ path('app_product_index') }}">Shop</a>
             <a href="{{ path('app_cart') }}">Cart</a>
             <a href="{{ path('app_logout') }}">Logout</a>
